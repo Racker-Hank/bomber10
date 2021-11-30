@@ -1,0 +1,14 @@
+.progress-bar {
+	-fx-accent: #fff;
+}
+
+.progress-bar > .track {
+	-fx-control-inner-background: #000;
+}
+
+.progress-bar > .bar {
+}
+
+.body {
+	-fx-background-color: #000;
+}
