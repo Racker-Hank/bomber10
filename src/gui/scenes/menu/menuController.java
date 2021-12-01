@@ -42,6 +42,7 @@ public class menuController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        // load loading scene
         if (!loadingController.isSplashLoaded) {
             // loadSplashScene();
         }
@@ -53,6 +54,7 @@ public class menuController implements Initializable {
             AnchorPane loadingPane = FXMLLoader.load(getClass().getResource("/gui/scenes/loading/loading.fxml"));
             root.getChildren().setAll(loadingPane);
 
+            // fade in
             FadeTransition fadeIn = new FadeTransition(Duration.seconds(5.5), loadingPane);
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
@@ -66,10 +68,12 @@ public class menuController implements Initializable {
             fadeIn.play();
             loadingController.isSplashLoaded = true;
 
+            // fade out
             fadeIn.setOnFinished(e -> {
                 fadeOut.play();
             });
 
+            // load menu scene
             fadeOut.setOnFinished(e -> {
                 try {
                     AnchorPane parentContent = FXMLLoader
