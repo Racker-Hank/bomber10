@@ -1,6 +1,6 @@
-package entities;
+package src.entities;
 
-import graphics.Sprite;
+import src.graphics.Sprite;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

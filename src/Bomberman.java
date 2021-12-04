@@ -1,8 +1,11 @@
+package src;
+
 import java.util.Objects;
 
 import com.sun.javafx.application.LauncherImpl;
 
-import gui.scenes.loading.loadingController;
+import src.gui.scenes.loading.loadingController;
+import src.gui.scenes.menu.menuController;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +27,12 @@ public class Bomberman extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        gamePlay();
+        // gamePlay();
+        launch(args);
     }
 
-    public static void gamePlay() {
-        launch();
-    }
+    // public static void gamePlay() {
+    // launch();
+    // }
 
 }

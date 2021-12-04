@@ -1,15 +1,15 @@
-package gui.scenes.level1;
+package src.gui.scenes.level1;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import entities.Bomber;
-import entities.Entity;
-import entities.Grass;
-import entities.Wall;
-import graphics.Sprite;
+import src.entities.Bomber;
+import src.entities.Entity;
+import src.entities.Grass;
+import src.entities.Wall;
+import src.graphics.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

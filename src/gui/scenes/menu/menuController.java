@@ -1,16 +1,19 @@
-package gui.scenes.menu;
+package src.gui.scenes.menu;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import gui.scenes.loading.loadingController;
+import src.gui.scenes.loading.loadingController;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class menuController implements Initializable {
@@ -23,7 +26,6 @@ public class menuController implements Initializable {
 
     @FXML
     private AnchorPane root;
-    public static AnchorPane rootP;
 
     @FXML
     private Button quit;
@@ -44,14 +46,13 @@ public class menuController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         // load loading scene
         if (!loadingController.isSplashLoaded) {
-            // loadSplashScene();
+            loadSplashScene();
         }
-        rootP = root;
     }
 
     public void loadSplashScene() {
         try {
-            AnchorPane loadingPane = FXMLLoader.load(getClass().getResource("/gui/scenes/loading/loading.fxml"));
+            AnchorPane loadingPane = FXMLLoader.load(getClass().getResource("/src/gui/scenes/loading/loading.fxml"));
             root.getChildren().setAll(loadingPane);
 
             // fade in
@@ -77,7 +78,7 @@ public class menuController implements Initializable {
             fadeOut.setOnFinished(e -> {
                 try {
                     AnchorPane parentContent = FXMLLoader
-                            .load(getClass().getResource("/gui/scenes/menu/menu.fxml"));
+                            .load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
                     root.getChildren().setAll(parentContent);
                 } catch (IOException e1) {
                     System.out.println(e);
@@ -92,8 +93,11 @@ public class menuController implements Initializable {
     public void startGame() {
         try {
             AnchorPane parentContent = FXMLLoader
-                    .load(getClass().getResource("/gui/scenes/level1/level1_map.fxml"));
-            root.getChildren().setAll(parentContent);
+                    .load(getClass().getResource("/src/gui/scenes/level1/level1_map.fxml"));
+            // root.getChildren().setAll(parentContent);
+            Stage stage;
+            stage = (Stage) root.getScene().getWindow();
+            stage.setScene(new Scene(parentContent));
         } catch (IOException e) {
             System.out.println(e);
         }

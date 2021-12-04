@@ -1,4 +1,4 @@
-package gui.scenes.loading;
+package src.gui.scenes.loading;
 
 import java.net.URL;
 import java.util.ResourceBundle;

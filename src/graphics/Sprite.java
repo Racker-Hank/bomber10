@@ -1,4 +1,4 @@
-package graphics;
+package src.graphics;
 
 import javafx.scene.image.*;
 
