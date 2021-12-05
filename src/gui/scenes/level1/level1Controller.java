@@ -7,14 +7,15 @@ import java.util.ResourceBundle;
 
 import src.entities.Bomber;
 import src.entities.Entity;
-import src.entities.Grass;
-import src.entities.Wall;
 import src.graphics.Sprite;
+import src.tile.Grass;
+import src.tile.Wall;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 public class level1Controller implements Initializable {
@@ -22,7 +23,19 @@ public class level1Controller implements Initializable {
     public static final int HEIGHT = 13;
 
     @FXML
-    private AnchorPane root;
+    public Button lives;
+
+    @FXML
+    public Button point;
+
+    @FXML
+    public Button time;
+
+    @FXML
+    public Button pause;
+
+    @FXML
+    public AnchorPane root;
 
     private GraphicsContext gc;
     private Canvas canvas;

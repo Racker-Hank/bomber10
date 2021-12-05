@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import src.gui.game.GamePane;
 import src.gui.scenes.loading.loadingController;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class menuController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         // load loading scene
         if (!loadingController.isSplashLoaded) {
-            loadSplashScene();
+            // loadSplashScene();
         }
     }
 
@@ -91,16 +92,20 @@ public class menuController implements Initializable {
     }
 
     public void startGame() {
-        try {
-            AnchorPane parentContent = FXMLLoader
-                    .load(getClass().getResource("/src/gui/scenes/level1/level1_map.fxml"));
-            // root.getChildren().setAll(parentContent);
-            Stage stage;
-            stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(parentContent));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        // try {
+        // // AnchorPane parentContent = FXMLLoader
+        // // .load(getClass().getResource("/src/gui/scenes/level1/level1_map.fxml"));
+        // // // root.getChildren().setAll(parentContent);
+        // // Stage stage;
+        // // stage = (Stage) root.getScene().getWindow();
+        // // stage.setScene(new Scene(parentContent));
+        // } catch (IOException e) {
+        // System.out.println(e);
+        // }
+        Stage primaryStage;
+        primaryStage = (Stage) root.getScene().getWindow();
+        GamePane gamePane = new GamePane();
+        gamePane.setupGame(primaryStage);
     }
 
     public void quit() {
