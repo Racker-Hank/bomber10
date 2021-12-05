@@ -11,11 +11,12 @@ import javafx.scene.shape.Rectangle;
 
 public class Entity {
     public GamePane gp;
-    public int worldX, worldY;
+    // public int worldX, worldY;
     public int speed;
-    public Image up1, up2, down1, down2, left1, left2, right1, right2, dead1, dead2, dead3;
+    public Image up1, up2, down1, down2, left1, left2, right1, right2, dead1, dead2, dead3, stand_up, stand_down,
+            stand_left, stand_right;
 
-    String direction;
+    public String direction;
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -29,18 +30,18 @@ public class Entity {
     public boolean isDead = false;
 
     // Tọa độ X tính từ góc trái trên trong Canvas
-    protected int x;
+    public int x;
 
     // Tọa độ Y tính từ góc trái trên trong Canvas
-    protected int y;
+    public int y;
 
-    protected Image img;
+    public Image image;
 
     // Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
-    public Entity(int xUnit, int yUnit, Image img) {
+    public Entity(int xUnit, int yUnit, Image image) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
-        this.img = img;
+        this.image = image;
     }
 
     public Entity(GamePane gp) {
@@ -48,7 +49,7 @@ public class Entity {
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(img, x, y);
+        gc.drawImage(image, x, y);
     }
 
     public void update() {

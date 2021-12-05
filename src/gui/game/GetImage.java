@@ -6,7 +6,8 @@ import src.graphics.Sprite;
 public class GetImage {
     // player
     public Image player_up1, player_up2, player_down1, player_down2, player_left1, player_left2, player_right1,
-            player_right2, player_dead1, player_dead2, player_dead3;
+            player_right2, player_dead1, player_dead2, player_dead3, player_stand_up, player_stand_down,
+            player_stand_left, player_stand_right;
 
     // bolloom
     public Image balloom_up1, balloom_up2, balloom_down1, balloom_down2, balloom_left1, balloom_left2, balloom_right1,
@@ -17,7 +18,7 @@ public class GetImage {
             oneal_dead1;
 
     // tiles
-    public Image grass, wall;
+    public Image grass, wall, wall1;
     public Image brick, brick_exploded, brick_exploded1, brick_exploded2;
 
     // objects
@@ -43,6 +44,10 @@ public class GetImage {
         player_dead1 = Sprite.player_dead1.getFxImage();
         player_dead2 = Sprite.player_dead2.getFxImage();
         player_dead3 = Sprite.player_dead3.getFxImage();
+        player_stand_up = Sprite.player_up.getFxImage();
+        player_stand_down = Sprite.player_down.getFxImage();
+        player_stand_left = Sprite.player_left.getFxImage();
+        player_stand_right = Sprite.player_right.getFxImage();
 
         // balloom
         balloom_up1 = Sprite.balloom_left1.getFxImage();
@@ -69,6 +74,7 @@ public class GetImage {
         // tiles
         grass = Sprite.grass.getFxImage();
         wall = Sprite.wall.getFxImage();
+        wall1 = Sprite.wall1.getFxImage();
         brick = Sprite.brick.getFxImage();
         brick_exploded = Sprite.brick_exploded.getFxImage();
         brick_exploded1 = Sprite.brick_exploded1.getFxImage();
@@ -76,5 +82,6 @@ public class GetImage {
 
         // objects
         portal = Sprite.portal.getFxImage();
+
     }
 }

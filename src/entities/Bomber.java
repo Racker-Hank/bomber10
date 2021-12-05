@@ -17,8 +17,8 @@ public class Bomber extends Entity {
 
     int standCounter = 0;
 
-    public Bomber(int x, int y, Image img) {
-        super(x, y, img);
+    public Bomber(int x, int y, Image image) {
+        super(x, y, image);
     }
 
     // public Bomber(GamePane gp) {
@@ -30,14 +30,10 @@ public class Bomber extends Entity {
         // this.gp = gamePane;
         this.keyHandler = keyHandler;
 
-        solidArea = new Rectangle();
-        solidArea.setLayoutX(3);
-        solidArea.setLayoutY(8);
-        solidArea.setHeight(20);
-        solidArea.setWidth(20);
+        solidArea = new Rectangle(0, 13, 16, 16);
 
-        solidAreaDefaultX = (int) solidArea.getLayoutX();
-        solidAreaDefaultY = (int) solidArea.getLayoutY();
+        solidAreaDefaultX = (int) solidArea.getX();
+        solidAreaDefaultY = (int) solidArea.getY();
 
         setDefaultValues();
         getImage();
@@ -46,7 +42,7 @@ public class Bomber extends Entity {
     public void setDefaultValues() {
         x = gp.tileSize;
         y = gp.tileSize;
-        speed = 4;
+        speed = 3;
         direction = "down";
     }
 
@@ -62,6 +58,10 @@ public class Bomber extends Entity {
         dead1 = gp.getImage.player_dead1;
         dead2 = gp.getImage.player_dead2;
         dead3 = gp.getImage.player_dead3;
+        stand_up = gp.getImage.player_stand_up;
+        stand_down = gp.getImage.player_stand_down;
+        stand_left = gp.getImage.player_stand_left;
+        stand_right = gp.getImage.player_stand_right;
     }
 
     @Override
@@ -76,6 +76,11 @@ public class Bomber extends Entity {
             } else if (keyHandler.right) {
                 direction = "right";
             }
+
+            collisionOn = false;
+            // check tile collision
+            gp.collisionChecker.checkTile(this);
+
             // if collision is false , player can move
             if (!collisionOn) {
                 switch (direction) {
@@ -99,17 +104,17 @@ public class Bomber extends Entity {
 
             spriteCounter++;
             if (spriteCounter > 10) {
-                if (spriteNum == 1) {
+                if (spriteNum != 2) {
                     spriteNum = 2;
-                } else if (spriteNum == 2) {
+                } else if (spriteNum != 1) {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
             }
         } else {
             standCounter++;
-            if (standCounter == 12) {
-                spriteNum = 1;
+            if (standCounter == 20) {
+                spriteNum = 0;
                 standCounter = 0;
             }
         }
@@ -122,38 +127,50 @@ public class Bomber extends Entity {
         switch (direction) {
             case "up":
                 if (spriteNum == 1) {
-                    img = up1;
+                    image = up1;
                 }
                 if (spriteNum == 2) {
-                    img = up2;
+                    image = up2;
+                }
+                if (spriteNum == 0) {
+                    image = stand_up;
                 }
                 break;
             case "down":
                 if (spriteNum == 1) {
-                    img = down1;
+                    image = down1;
                 }
                 if (spriteNum == 2) {
-                    img = down2;
+                    image = down2;
+                }
+                if (spriteNum == 0) {
+                    image = stand_down;
                 }
                 break;
             case "left":
                 if (spriteNum == 1) {
-                    img = left1;
+                    image = left1;
                 }
                 if (spriteNum == 2) {
-                    img = left2;
+                    image = left2;
+                }
+                if (spriteNum == 0) {
+                    image = stand_left;
                 }
                 break;
             case "right":
                 if (spriteNum == 1) {
-                    img = right1;
+                    image = right1;
                 }
                 if (spriteNum == 2) {
-                    img = right2;
+                    image = right2;
+                }
+                if (spriteNum == 0) {
+                    image = stand_right;
                 }
                 break;
 
         }
-        gc.drawImage(img, x, y);
+        gc.drawImage(image, x, y);
     }
 }

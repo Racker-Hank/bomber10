@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import src.entities.Bomber;
 import src.graphics.Sprite;
+import src.tile.TileManager;
 
 public class GamePane {
     public AnchorPane gamePane;
@@ -34,14 +35,20 @@ public class GamePane {
     // canvas
     public GraphicsContext gc;
     public Canvas canvas;
+    public String levelMapPath = "./res/levels/level1Map.txt";
 
     // key handler
     public KeyHandler keyHandler;
 
     public GetImage getImage = new GetImage();
 
+    // map
+    public TileManager tileManager;
     // entities
     public Bomber player;
+    // collision checker
+    public CollisionChecker collisionChecker;
+
     // game thread
     public AnimationTimer gameThread;
 
@@ -77,6 +84,8 @@ public class GamePane {
     public void initGame() {
         keyHandler = new KeyHandler(this);
         player = new Bomber(this, keyHandler);
+        tileManager = new TileManager(this);
+        collisionChecker = new CollisionChecker(this);
     }
 
     public void setupGame(Stage primaryStage) {
@@ -114,6 +123,9 @@ public class GamePane {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        // draw map
+        tileManager.render(gc);
 
         // draw player
         player.render(gc);
