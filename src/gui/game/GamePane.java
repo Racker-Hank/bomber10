@@ -1,14 +1,17 @@
 package src.gui.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import src.entities.Bomber;
-import src.graphics.Sprite;
+// import src.graphics.Sprite;
+import src.object.ObjectManager;
 import src.tile.TileManager;
 
 public class GamePane {
@@ -44,6 +47,10 @@ public class GamePane {
 
     // map
     public TileManager tileManager;
+    // objects
+    public List<ObjectManager> obj = new ArrayList<ObjectManager>();
+    // asset
+    public AssetSetter assetSetter;
     // entities
     public Bomber player;
     // collision checker
@@ -85,12 +92,15 @@ public class GamePane {
         keyHandler = new KeyHandler(this);
         player = new Bomber(this, keyHandler);
         tileManager = new TileManager(this);
+        assetSetter = new AssetSetter(this);
         collisionChecker = new CollisionChecker(this);
     }
 
     public void setupGame(Stage primaryStage) {
         primaryStage.hide();
         gameState = PLAY_STATE;
+
+        assetSetter.setObject();
 
         // game loop
         createGameLoop();
@@ -126,6 +136,11 @@ public class GamePane {
 
         // draw map
         tileManager.render(gc);
+
+        // draw objects
+        for (int i = 0; i < obj.size(); i++) {
+            obj.get(i).render(gc);
+        }
 
         // draw player
         player.render(gc);

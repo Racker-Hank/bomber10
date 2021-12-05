@@ -2,11 +2,8 @@ package src.entities;
 
 import src.graphics.Sprite;
 import src.gui.game.GamePane;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Entity {

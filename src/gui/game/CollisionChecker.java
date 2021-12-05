@@ -1,6 +1,7 @@
 package src.gui.game;
 
 import src.entities.Entity;
+import src.object.ObjectManager;
 
 public class CollisionChecker {
     GamePane gp;
@@ -123,5 +124,80 @@ public class CollisionChecker {
                 }
                 break;
         }
+    }
+
+    public int checkObject(Entity entity, boolean isPlayer) {
+        int index = 999;
+
+        for (int i = 0; i < gp.obj.size(); i++) {
+            if (gp.obj.get(i) != null) {
+                // get entity's solid area position
+                entity.solidArea.setX(entity.x + entity.solidArea.getX());
+                entity.solidArea.setY(entity.y + entity.solidArea.getY());
+
+                // get object's solid area position
+                gp.obj.get(i).solidArea.setX(gp.obj.get(i).x + gp.obj.get(i).solidArea.getX());
+                gp.obj.get(i).solidArea.setY(gp.obj.get(i).y + gp.obj.get(i).solidArea.getY());
+
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.setY(entity.solidArea.getY() - entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(gp.obj.get(i).solidArea.getBoundsInParent())) {
+                            if (gp.obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
+                        }
+                        break;
+
+                    case "down":
+                        entity.solidArea.setY(entity.solidArea.getY() + entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(gp.obj.get(i).solidArea.getBoundsInParent())) {
+                            if (gp.obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
+                        }
+                        break;
+
+                    case "left":
+                        entity.solidArea.setX(entity.solidArea.getX() - entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(gp.obj.get(i).solidArea.getBoundsInParent())) {
+                            if (gp.obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
+                        }
+                        break;
+
+                    case "right":
+                        entity.solidArea.setX(entity.solidArea.getX() + entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(gp.obj.get(i).solidArea.getBoundsInParent())) {
+                            if (gp.obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
+                        }
+                        break;
+                }
+                entity.solidArea.setX(entity.solidAreaDefaultX);
+                entity.solidArea.setY(entity.solidAreaDefaultY);
+                gp.obj.get(i).solidArea.setX(gp.obj.get(i).solidAreaDefaultX);
+                gp.obj.get(i).solidArea.setY(gp.obj.get(i).solidAreaDefaultY);
+            }
+        }
+        return index;
     }
 }

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import javafx.scene.canvas.GraphicsContext;
 import src.gui.game.GamePane;
@@ -29,21 +27,22 @@ public class TileManager {
 
     public void getImage() {
         // grass
-        tile[0] = new Tile();
+        tile[0] = new Grass();
         tile[0].image = gp.getImage.grass;
 
         // wall
-        tile[1] = new Tile();
+        tile[1] = new Wall();
         tile[1].image = gp.getImage.wall;
         tile[1].collision = true;
-        tile[2] = new Tile();
+        tile[2] = new Wall();
         tile[2].image = gp.getImage.wall1;
         tile[2].collision = true;
 
         // brick
-        tile[3] = new Tile();
+        tile[3] = new Brick();
         tile[3].image = gp.getImage.brick;
         tile[3].collision = true;
+        tile[3].explode = true;
     }
 
     public void loadMap() {

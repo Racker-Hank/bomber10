@@ -82,6 +82,8 @@ public class GetImage {
 
         // objects
         portal = Sprite.portal.getFxImage();
-
+        powerup_bombs = Sprite.powerup_bombs.getFxImage();
+        powerup_speed = Sprite.powerup_speed.getFxImage();
+        powerup_flames = Sprite.powerup_flames.getFxImage();
     }
 }

@@ -1,10 +1,7 @@
 package src.entities;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import src.gui.game.GamePane;
 import src.gui.game.KeyHandler;
@@ -80,6 +77,9 @@ public class Bomber extends Entity {
             collisionOn = false;
             // check tile collision
             gp.collisionChecker.checkTile(this);
+            // check object collision
+            int objIndex = gp.collisionChecker.checkObject(this, true);
+            pickUpObject(objIndex);
 
             // if collision is false , player can move
             if (!collisionOn) {
@@ -116,6 +116,23 @@ public class Bomber extends Entity {
             if (standCounter == 20) {
                 spriteNum = 0;
                 standCounter = 0;
+            }
+        }
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            String objName = gp.obj.get(i).name;
+            switch (objName) {
+                case "speed":
+                    speed = 5;
+                    gp.obj.remove(i);
+                    break;
+                case "flames":
+                    // speed = 5;
+                    System.out.println("flames");
+                    gp.obj.remove(i);
+                    break;
             }
         }
     }

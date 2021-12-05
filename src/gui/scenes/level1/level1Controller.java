@@ -9,6 +9,7 @@ import src.entities.Bomber;
 import src.entities.Entity;
 import src.graphics.Sprite;
 import src.tile.Grass;
+import src.tile.Tile;
 import src.tile.Wall;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class level1Controller implements Initializable {
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    private List<Tile> stillObjects = new ArrayList<>();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -70,7 +71,7 @@ public class level1Controller implements Initializable {
     public void createMap() {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
+                Tile object;
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
                     object = new Wall(i, j, Sprite.wall.getFxImage());
                 } else {
@@ -87,7 +88,7 @@ public class level1Controller implements Initializable {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
+        // stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }
 }

@@ -1,9 +1,12 @@
 package src.tile;
 
 import javafx.scene.image.Image;
-import src.entities.Entity;
 
-public class Wall extends Entity {
+public class Wall extends Tile {
+
+    public Wall() {
+
+    }
 
     public Wall(int x, int y, Image img) {
         super(x, y, img);
