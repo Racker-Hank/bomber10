@@ -18,12 +18,13 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
-    public Rectangle solidArea = new Rectangle(0, 0, 32, 32);
+    public Rectangle solidArea = new Rectangle(0, 0, 30, 30);
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
 
     public boolean collisionOn = false;
-    int actionLockAction = 0;
+    public boolean explode = false;
+    public int actionLockCounter = 0;
     public boolean isDead = false;
 
     // Tọa độ X tính từ góc trái trên trong Canvas
@@ -35,18 +36,56 @@ public class Entity {
     public Image image;
 
     // Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
-    public Entity(int xUnit, int yUnit, Image image) {
-        this.x = xUnit * Sprite.SCALED_SIZE;
-        this.y = yUnit * Sprite.SCALED_SIZE;
-        this.image = image;
-    }
+    // public Entity(int xUnit, int yUnit, Image image) {
+    // this.x = xUnit * Sprite.SCALED_SIZE;
+    // this.y = yUnit * Sprite.SCALED_SIZE;
+    // this.image = image;
+    // }
 
     public Entity(GamePane gp) {
         this.gp = gp;
     }
 
     public void render(GraphicsContext gc) {
+        switch (direction) {
+            case "up":
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+                break;
+            case "down":
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+                break;
+            case "left":
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+                break;
+            case "right":
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+                break;
+
+        }
         gc.drawImage(image, x, y);
+    }
+
+    public void setAction() {
     }
 
     public void update() {

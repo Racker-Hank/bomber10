@@ -74,16 +74,16 @@ public class TileManager {
     }
 
     public void render(GraphicsContext gc) {
-        for (int i = 0; i < gp.maxWorldCol; i++) {
-            for (int j = 0; j < gp.maxWorldRow; j++) {
-                if (j == 0 || j == gp.maxWorldRow - 1 || i == 0 || i == gp.maxWorldCol - 1) {
-                    gc.drawImage(tile[1].image, i * gp.tileSize, j * gp.tileSize);
-                } else if (mapTile[i][j] == '#') {
-                    gc.drawImage(tile[2].image, i * gp.tileSize, j * gp.tileSize);
-                } else if (mapTile[i][j] == '*') {
-                    gc.drawImage(tile[3].image, i * gp.tileSize, j * gp.tileSize);
+        for (int col = 0; col < gp.maxWorldCol; col++) {
+            for (int row = 0; row < gp.maxWorldRow; row++) {
+                if (row == 0 || row == gp.maxWorldRow - 1 || col == 0 || col == gp.maxWorldCol - 1) {
+                    gc.drawImage(tile[1].image, col * gp.tileSize, row * gp.tileSize);
+                } else if (mapTile[col][row] == '#') {
+                    gc.drawImage(tile[2].image, col * gp.tileSize, row * gp.tileSize);
+                } else if (mapTile[col][row] == '*') {
+                    gc.drawImage(tile[3].image, col * gp.tileSize, row * gp.tileSize);
                 } else {
-                    gc.drawImage(tile[0].image, i * gp.tileSize, j * gp.tileSize);
+                    gc.drawImage(tile[0].image, col * gp.tileSize, row * gp.tileSize);
                 }
             }
         }

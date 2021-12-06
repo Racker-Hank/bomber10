@@ -3,6 +3,7 @@ package src.entities;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
+import src.entities.enemy.EnemyManager;
 import src.gui.game.GamePane;
 import src.gui.game.KeyHandler;
 
@@ -11,12 +12,13 @@ public class Bomber extends Entity {
     KeyHandler keyHandler;
 
     public int hasBomb = 1;
+    public int lives = 1;
 
     int standCounter = 0;
 
-    public Bomber(int x, int y, Image image) {
-        super(x, y, image);
-    }
+    // public Bomber(int x, int y, Image image) {
+    // super(x, y, image);
+    // }
 
     // public Bomber(GamePane gp) {
     // super(gp);
@@ -80,6 +82,12 @@ public class Bomber extends Entity {
             // check object collision
             int objIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);
+            // check enemy collision
+            int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
+            if (enemyIndex != 999) {
+                Entity enemy = gp.enemy.get(enemyIndex);
+                hitEnemy(enemy);
+            }
 
             // if collision is false , player can move
             if (!collisionOn) {
@@ -134,6 +142,21 @@ public class Bomber extends Entity {
                     gp.obj.remove(i);
                     break;
             }
+        }
+    }
+
+    public void hitEnemy(Entity entity) {
+        if (entity instanceof EnemyManager) {
+            EnemyManager enemy = (EnemyManager) entity;
+            String enemyName = enemy.name;
+            System.out.println(enemyName);
+            // switch (enemyName) {
+            // case "enemy":
+            gp.enemy.remove(enemy);
+            lives--;
+            System.out.println(lives);
+            // break;
+            // }
         }
     }
 

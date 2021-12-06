@@ -1,6 +1,9 @@
 package src.gui.game;
 
+import java.util.List;
+
 import src.entities.Entity;
+import src.entities.enemy.Balloom;
 import src.object.ObjectManager;
 
 public class CollisionChecker {
@@ -199,5 +202,127 @@ public class CollisionChecker {
             }
         }
         return index;
+    }
+
+    // check player runs into entity
+    public int checkEntity(Entity entity, List<Entity> target) {
+        int index = 999;
+
+        for (int i = 0; i < target.size(); i++) {
+            if (target.get(i) != null && !target.get(i).equals(entity)) {
+                // get entity's solid area position
+                entity.solidArea.setX(entity.x + entity.solidArea.getX());
+                entity.solidArea.setY(entity.y + entity.solidArea.getY());
+
+                // get object's solid area position
+                target.get(i).solidArea.setX(target.get(i).x + target.get(i).solidArea.getX());
+                target.get(i).solidArea.setY(target.get(i).y + target.get(i).solidArea.getY());
+
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.setY(entity.solidArea.getY() - entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(target.get(i).solidArea.getBoundsInParent())) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+
+                    case "down":
+                        entity.solidArea.setY(entity.solidArea.getY() + entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(target.get(i).solidArea.getBoundsInParent())) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+
+                    case "left":
+                        entity.solidArea.setX(entity.solidArea.getX() - entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(target.get(i).solidArea.getBoundsInParent())) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+
+                    case "right":
+                        entity.solidArea.setX(entity.solidArea.getX() + entity.speed);
+                        if (entity.solidArea.getBoundsInParent()
+                                .intersects(target.get(i).solidArea.getBoundsInParent())) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                }
+                entity.solidArea.setX(entity.solidAreaDefaultX);
+                entity.solidArea.setY(entity.solidAreaDefaultY);
+                target.get(i).solidArea.setX(target.get(i).solidAreaDefaultX);
+                target.get(i).solidArea.setY(target.get(i).solidAreaDefaultY);
+            }
+        }
+        return index;
+    }
+
+    // check entity runs into player
+    public boolean checkPlayer(Entity entity, boolean isEnemy) {
+        // get entity's solid area position
+        entity.solidArea.setX(entity.x + entity.solidArea.getX());
+        entity.solidArea.setY(entity.y + entity.solidArea.getY());
+
+        // get object's solid area position
+        gp.player.solidArea.setX(gp.player.x + gp.player.solidArea.getX());
+        gp.player.solidArea.setY(gp.player.y + gp.player.solidArea.getY());
+
+        switch (entity.direction) {
+            case "up":
+                entity.solidArea.setY(entity.solidArea.getY() - entity.speed);
+                if (entity.solidArea.getBoundsInParent()
+                        .intersects(gp.player.solidArea.getBoundsInParent())) {
+                    entity.collisionOn = true;
+                    if (isEnemy) {
+                        return true;
+                    }
+                }
+                break;
+
+            case "down":
+                entity.solidArea.setY(entity.solidArea.getY() + entity.speed);
+                if (entity.solidArea.getBoundsInParent()
+                        .intersects(gp.player.solidArea.getBoundsInParent())) {
+                    entity.collisionOn = true;
+                    if (isEnemy) {
+                        return true;
+                    }
+                }
+                break;
+
+            case "left":
+                entity.solidArea.setX(entity.solidArea.getX() - entity.speed);
+                if (entity.solidArea.getBoundsInParent()
+                        .intersects(gp.player.solidArea.getBoundsInParent())) {
+                    entity.collisionOn = true;
+                    if (isEnemy) {
+                        return true;
+                    }
+                }
+                break;
+
+            case "right":
+                entity.solidArea.setX(entity.solidArea.getX() + entity.speed);
+                if (entity.solidArea.getBoundsInParent()
+                        .intersects(gp.player.solidArea.getBoundsInParent())) {
+                    entity.collisionOn = true;
+                    if (isEnemy) {
+                        return true;
+                    }
+                }
+                break;
+        }
+        entity.solidArea.setX(entity.solidAreaDefaultX);
+        entity.solidArea.setY(entity.solidAreaDefaultY);
+        gp.player.solidArea.setX(gp.player.solidAreaDefaultX);
+        gp.player.solidArea.setY(gp.player.solidAreaDefaultY);
+        return false;
     }
 }

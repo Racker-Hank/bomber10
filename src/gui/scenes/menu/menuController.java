@@ -47,7 +47,7 @@ public class menuController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         // load loading scene
         if (!loadingController.isSplashLoaded) {
-            loadSplashScene();
+            // loadSplashScene();
         }
     }
 

@@ -10,6 +10,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import src.entities.Bomber;
+import src.entities.Entity;
+import src.entities.enemy.EnemyManager;
 // import src.graphics.Sprite;
 import src.object.ObjectManager;
 import src.tile.TileManager;
@@ -53,6 +55,8 @@ public class GamePane {
     public AssetSetter assetSetter;
     // entities
     public Bomber player;
+    // enemy
+    public List<Entity> enemy = new ArrayList<Entity>();
     // collision checker
     public CollisionChecker collisionChecker;
 
@@ -100,7 +104,10 @@ public class GamePane {
         primaryStage.hide();
         gameState = PLAY_STATE;
 
+        // set objects (power ups)
         assetSetter.setObject();
+        // set enemies
+        assetSetter.setEnemy();
 
         // game loop
         createGameLoop();
@@ -123,8 +130,12 @@ public class GamePane {
         if (gameState == PLAY_STATE) {
             // player
             player.update();
-            // npc
-
+            // enemy
+            for (int i = 0; i < enemy.size(); i++) {
+                if (enemy.get(i) != null) {
+                    enemy.get(i).update();
+                }
+            }
         }
         if (gameState == PAUSE_STATE) {
             // nothing
@@ -139,7 +150,16 @@ public class GamePane {
 
         // draw objects
         for (int i = 0; i < obj.size(); i++) {
-            obj.get(i).render(gc);
+            if (obj.get(i) != null) {
+                obj.get(i).render(gc);
+            }
+        }
+
+        // draw enemies
+        for (int i = 0; i < enemy.size(); i++) {
+            if (enemy.get(i) != null) {
+                enemy.get(i).render(gc);
+            }
         }
 
         // draw player
