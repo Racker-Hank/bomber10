@@ -3,7 +3,6 @@ package src.gui.game;
 import java.util.List;
 
 import src.entities.Entity;
-import src.entities.enemy.Balloom;
 import src.object.ObjectManager;
 
 public class CollisionChecker {
@@ -26,28 +25,46 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
+        char ch1, ch2;
+
         switch (entity.direction) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
 
-                if (gp.tileManager.mapTile[entityLeftCol][entityTopRow] == '#') {
+                ch1 = gp.tileManager.liveMapTile[entityLeftCol][entityTopRow];
+                ch2 = gp.tileManager.liveMapTile[entityRightCol][entityTopRow];
+
+                if (ch1 == '#') {
                     tileNum1 = 1;
-                } else if (gp.tileManager.mapTile[entityLeftCol][entityTopRow] == '*') {
-                    tileNum1 = 3;
+                    // } else if (ch1 == '*') {
+                    // tileNum1 = 1;
                 } else {
                     tileNum1 = 0;
                 }
 
-                if (gp.tileManager.mapTile[entityRightCol][entityTopRow] == '#') {
+                if (ch2 == '#') {
                     tileNum2 = 1;
-                } else if (gp.tileManager.mapTile[entityRightCol][entityTopRow] == '*') {
-                    tileNum2 = 3;
+                    // } else if (ch2 == '*') {
+                    // tileNum2 = 1;
                 } else {
                     tileNum2 = 0;
                 }
 
-                if (gp.tileManager.tile[tileNum1].collision == true
-                        || gp.tileManager.tile[tileNum2].collision == true) {
+                if (ch1 == '*' || ch2 == '*') {
+                    entity.collisionOn = true;
+                    // return;
+                }
+
+                // for (int i = 0; i < ObjectManager.objChar.size(); i++) {
+                // char check = ObjectManager.objChar.get(i);
+                // if (ch1 == check || ch2 == check) {
+                // entity.collisionOn = true;
+                // // return;
+                // }
+                // }
+
+                if (gp.tileManager.tile[tileNum1].collision
+                        || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -55,24 +72,26 @@ public class CollisionChecker {
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 
-                if (gp.tileManager.mapTile[entityLeftCol][entityBottomRow] == '#') {
+                ch1 = gp.tileManager.liveMapTile[entityLeftCol][entityBottomRow];
+                ch2 = gp.tileManager.liveMapTile[entityRightCol][entityBottomRow];
+
+                if (ch1 == '#') {
                     tileNum1 = 1;
-                } else if (gp.tileManager.mapTile[entityLeftCol][entityBottomRow] == '*') {
-                    tileNum1 = 3;
                 } else {
                     tileNum1 = 0;
                 }
 
-                if (gp.tileManager.mapTile[entityRightCol][entityBottomRow] == '#') {
+                if (ch2 == '#') {
                     tileNum2 = 1;
-                } else if (gp.tileManager.mapTile[entityRightCol][entityBottomRow] == '*') {
-                    tileNum2 = 3;
                 } else {
                     tileNum2 = 0;
                 }
 
-                if (gp.tileManager.tile[tileNum1].collision == true
-                        || gp.tileManager.tile[tileNum2].collision == true) {
+                if (ch1 == '*' || ch2 == '*')
+                    entity.collisionOn = true;
+
+                if (gp.tileManager.tile[tileNum1].collision
+                        || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -80,24 +99,26 @@ public class CollisionChecker {
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
 
-                if (gp.tileManager.mapTile[entityLeftCol][entityTopRow] == '#') {
+                ch1 = gp.tileManager.liveMapTile[entityLeftCol][entityTopRow];
+                ch2 = gp.tileManager.liveMapTile[entityLeftCol][entityBottomRow];
+
+                if (ch1 == '#') {
                     tileNum1 = 1;
-                } else if (gp.tileManager.mapTile[entityLeftCol][entityTopRow] == '*') {
-                    tileNum1 = 3;
                 } else {
                     tileNum1 = 0;
                 }
 
-                if (gp.tileManager.mapTile[entityLeftCol][entityBottomRow] == '#') {
+                if (ch2 == '#') {
                     tileNum2 = 1;
-                } else if (gp.tileManager.mapTile[entityLeftCol][entityBottomRow] == '*') {
-                    tileNum2 = 3;
                 } else {
                     tileNum2 = 0;
                 }
 
-                if (gp.tileManager.tile[tileNum1].collision == true
-                        || gp.tileManager.tile[tileNum2].collision == true) {
+                if (ch1 == '*' || ch2 == '*')
+                    entity.collisionOn = true;
+
+                if (gp.tileManager.tile[tileNum1].collision
+                        || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -105,28 +126,31 @@ public class CollisionChecker {
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 
-                if (gp.tileManager.mapTile[entityRightCol][entityTopRow] == '#') {
+                ch1 = gp.tileManager.liveMapTile[entityRightCol][entityTopRow];
+                ch2 = gp.tileManager.liveMapTile[entityRightCol][entityBottomRow];
+
+                if (ch1 == '#') {
                     tileNum1 = 1;
-                } else if (gp.tileManager.mapTile[entityRightCol][entityTopRow] == '*') {
-                    tileNum1 = 3;
                 } else {
                     tileNum1 = 0;
                 }
 
-                if (gp.tileManager.mapTile[entityRightCol][entityBottomRow] == '#') {
+                if (ch2 == '#') {
                     tileNum2 = 1;
-                } else if (gp.tileManager.mapTile[entityRightCol][entityBottomRow] == '*') {
-                    tileNum2 = 3;
                 } else {
                     tileNum2 = 0;
                 }
 
-                if (gp.tileManager.tile[tileNum1].collision == true
-                        || gp.tileManager.tile[tileNum2].collision == true) {
+                if (ch1 == '*' || ch2 == '*')
+                    entity.collisionOn = true;
+
+                if (gp.tileManager.tile[tileNum1].collision
+                        || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
         }
+
     }
 
     public int checkObject(Entity entity, boolean isPlayer) {

@@ -11,7 +11,8 @@ import src.gui.game.GamePane;
 public class TileManager {
     GamePane gp;
     public Tile[] tile;
-    public char[][] mapTile;
+    public char[][] liveMapTile;
+    public char[][] inputMapTile;
     public String levelMapPath;
 
     public TileManager(GamePane gp) {
@@ -20,7 +21,8 @@ public class TileManager {
 
         tile = new Tile[10];
 
-        mapTile = new char[gp.maxWorldCol][gp.maxScreenRow];
+        liveMapTile = new char[gp.maxWorldCol][gp.maxScreenRow];
+        inputMapTile = new char[gp.maxWorldCol][gp.maxScreenRow];
         getImage();
         loadMap();
     }
@@ -54,7 +56,8 @@ public class TileManager {
                     break;
                 }
                 while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
-                    mapTile[col][row] = line.charAt(col);
+                    inputMapTile[col][row] = line.charAt(col);
+                    liveMapTile[col][row] = line.charAt(col);
                     col++;
                 }
                 if (col == gp.maxWorldCol) {
@@ -64,8 +67,17 @@ public class TileManager {
             }
             br.close();
         } catch (IOException e) {
-
             e.printStackTrace();
+        }
+    }
+
+    public void addBrick() {
+        for (int col = 0; col < gp.maxWorldCol; col++) {
+            for (int row = 0; row < gp.maxWorldRow; row++) {
+                if (liveMapTile[col][row] == '*') {
+                    gp.bricks.add(new Brick(gp, col * gp.tileSize, row * gp.tileSize, tile[3].image));
+                }
+            }
         }
     }
 
@@ -74,11 +86,12 @@ public class TileManager {
             for (int row = 0; row < gp.maxWorldRow; row++) {
                 if (row == 0 || row == gp.maxWorldRow - 1 || col == 0 || col == gp.maxWorldCol - 1) {
                     gc.drawImage(tile[1].image, col * gp.tileSize, row * gp.tileSize);
-                } else if (mapTile[col][row] == '#') {
+                } else if (liveMapTile[col][row] == '#') {
                     gc.drawImage(tile[2].image, col * gp.tileSize, row * gp.tileSize);
-                } else if (mapTile[col][row] == '*') {
-                    gp.bricks.add(new Brick(col * gp.tileSize, row * gp.tileSize, tile[3].image));
-                    gc.drawImage(tile[3].image, col * gp.tileSize, row * gp.tileSize);
+                    // } else if (liveMapTile[col][row] == '*') {
+                    // gp.bricks.add(new Brick(col * gp.tileSize, row * gp.tileSize,
+                    // tile[3].image));
+                    // gc.drawImage(tile[3].image, col * gp.tileSize, row * gp.tileSize);
                 } else {
                     gc.drawImage(tile[0].image, col * gp.tileSize, row * gp.tileSize);
                 }

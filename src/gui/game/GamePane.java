@@ -22,6 +22,7 @@ public class GamePane {
     public AnchorPane gamePane;
     public Scene gameScene;
     public Stage gameStage;
+    public Stage primaryStage;
 
     // * SCREEN SETTING
     public final int originalTilesSize = 16; // 16x16 tile
@@ -54,6 +55,7 @@ public class GamePane {
     public List<Brick> bricks = new ArrayList<Brick>();
     // objects
     public List<ObjectManager> obj = new ArrayList<ObjectManager>();
+    public ObjectManager objManager;
     // asset
     public AssetSetter assetSetter;
     // entities
@@ -70,8 +72,11 @@ public class GamePane {
 
     // game state
     public int gameState;
+    public final int NEW_GAME_STATE = 0;
     public final int PLAY_STATE = 1;
     public final int PAUSE_STATE = 2;
+    public final int GAME_WIN_STATE = 3;
+    public final int GAME_OVER_STATE = 4;
 
     public GamePane() {
         // create game pane
@@ -101,16 +106,20 @@ public class GamePane {
         keyHandler = new KeyHandler(this);
         player = new Bomber(this, keyHandler);
         tileManager = new TileManager(this);
+        objManager = new ObjectManager(this);
         assetSetter = new AssetSetter(this);
         collisionChecker = new CollisionChecker(this);
     }
 
     public void setupGame(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         primaryStage.hide();
         gameState = PLAY_STATE;
 
         // set objects (power ups)
         assetSetter.setObject();
+        // set bricks
+        tileManager.addBrick();
         // set enemies
         assetSetter.setEnemy();
 
@@ -132,9 +141,14 @@ public class GamePane {
     }
 
     public void update() {
+        // System.out.println(gameState);
         if (gameState == PLAY_STATE) {
+            // object
+            objManager.update();
+
             // player
             player.update();
+
             // enemy
             for (int i = 0; i < enemy.size(); i++) {
                 if (enemy.get(i) != null) {
@@ -151,6 +165,10 @@ public class GamePane {
         if (gameState == PAUSE_STATE) {
             // nothing
         }
+        // if (gameState == NEW_GAME_STATE) {
+        // // setupGame(primaryStage);
+        // System.out.println("new game");
+        // }
     }
 
     public void render() {
@@ -166,11 +184,18 @@ public class GamePane {
             }
         }
 
+        // draw brick
+        for (int i = 0; i < bricks.size(); i++) {
+            if (bricks.get(i) != null) {
+                bricks.get(i).render(gc);
+            }
+        }
+
         // draw bomb
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).spriteCounter >= Bomb.explodeTime) {
                 bombs.remove(i);
-                player.hasBomb++;
+                player.bombs++;
             } else {
                 if (bombs.get(i) != null) {
                     bombs.get(i).render(gc);

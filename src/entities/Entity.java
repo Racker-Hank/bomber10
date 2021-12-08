@@ -1,6 +1,6 @@
 package src.entities;
 
-import src.graphics.Sprite;
+import src.entities.enemy.EnemyManager;
 import src.gui.game.GamePane;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,13 +17,14 @@ public class Entity {
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public int explodeCounter = 0;
 
     public Rectangle solidArea = new Rectangle(0, 0, 30, 30);
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
 
     public boolean collisionOn = false;
-    public boolean explode = true;
+    public boolean explode = true; // can explode?
     public boolean isExploded = false;
     public boolean isDead = false;
 
@@ -49,40 +50,57 @@ public class Entity {
     }
 
     public void render(GraphicsContext gc) {
-        switch (direction) {
-            case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-                break;
-            case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                break;
-            case "left":
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-                break;
-            case "right":
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-                break;
+        if (!isExploded) {
+            switch (direction) {
+                case "up":
+                    if (spriteNum == 1) {
+                        image = up1;
+                    }
+                    if (spriteNum == 2) {
+                        image = up2;
+                    }
+                    break;
+                case "down":
+                    if (spriteNum == 1) {
+                        image = down1;
+                    }
+                    if (spriteNum == 2) {
+                        image = down2;
+                    }
+                    break;
+                case "left":
+                    if (spriteNum == 1) {
+                        image = left1;
+                    }
+                    if (spriteNum == 2) {
+                        image = left2;
+                    }
+                    break;
+                case "right":
+                    if (spriteNum == 1) {
+                        image = right1;
+                    }
+                    if (spriteNum == 2) {
+                        image = right2;
+                    }
+                    break;
 
+            }
+        } else {
+            explodeCounter++;
+            if (explodeCounter >= 0 && explodeCounter <= 15) {
+                image = dead1;
+            } else if (explodeCounter > 15 && explodeCounter <= 30) {
+                image = dead2;
+            } else if (explodeCounter > 30 && explodeCounter <= 45) {
+                image = dead3;
+            } else {
+                image = null;
+                if (this instanceof EnemyManager) {
+                    gp.tileManager.liveMapTile[this.x / gp.tileSize][this.y / gp.tileSize] = ' ';
+                    gp.enemy.remove(this);
+                }
+            }
         }
         gc.drawImage(image, x, y);
     }

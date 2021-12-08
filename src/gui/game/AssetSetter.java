@@ -4,8 +4,10 @@ import src.entities.enemy.Balloom;
 import src.entities.enemy.Oneal;
 import src.object.Bombs;
 import src.object.Flames;
+import src.object.ObjectManager;
 import src.object.Portal;
 import src.object.Speed;
+import src.tile.Brick;
 
 public class AssetSetter {
     GamePane gp;
@@ -14,19 +16,48 @@ public class AssetSetter {
         this.gp = gp;
     }
 
+    // public void setObject() {
+    // for (int col = 0; col < gp.maxWorldCol; col++) {
+    // for (int row = 0; row < gp.maxWorldRow; row++) {
+    // if (gp.tileManager.liveMapTile[col][row] == 'f') {
+    // gp.obj.add(new Flames(gp, col, row));
+    // ObjectManager.objChar.add('f');
+    // gp.bricks.add(new Brick(gp, col * gp.tileSize, row * gp.tileSize,
+    // gp.tileManager.tile[3].image));
+    // } else if (gp.tileManager.liveMapTile[col][row] == 's') {
+    // gp.obj.add(new Speed(gp, col, row));
+    // ObjectManager.objChar.add('s');
+    // gp.bricks.add(new Brick(gp, col * gp.tileSize, row * gp.tileSize,
+    // gp.tileManager.tile[3].image));
+    // } else if (gp.tileManager.liveMapTile[col][row] == 'b') {
+    // gp.obj.add(new Bombs(gp, col, row));
+    // ObjectManager.objChar.add('b');
+    // gp.bricks.add(new Brick(gp, col * gp.tileSize, row * gp.tileSize,
+    // gp.tileManager.tile[3].image));
+
+    // } else if (gp.tileManager.liveMapTile[col][row] == 'x') {
+    // gp.obj.add(new Portal(gp, col, row));
+    // ObjectManager.objChar.add('x');
+    // gp.bricks.add(new Brick(gp, col * gp.tileSize, row * gp.tileSize,
+    // gp.tileManager.tile[3].image));
+    // }
+
+    // }
+    // }
+    // }
+
     public void setObject() {
         for (int col = 0; col < gp.maxWorldCol; col++) {
             for (int row = 0; row < gp.maxWorldRow; row++) {
-                if (gp.tileManager.mapTile[col][row] == 'f') {
-                    gp.obj.add(new Flames(gp, col, row));
-                } else if (gp.tileManager.mapTile[col][row] == 's') {
-                    gp.obj.add(new Speed(gp, col, row));
-                } else if (gp.tileManager.mapTile[col][row] == 'b') {
-                    gp.obj.add(new Bombs(gp, col, row));
-                } else if (gp.tileManager.mapTile[col][row] == 'x') {
-                    gp.obj.add(new Portal(gp, col, row));
+                if (gp.tileManager.inputMapTile[col][row] == 'f') {
+                    gp.tileManager.liveMapTile[col][row] = '*';
+                } else if (gp.tileManager.inputMapTile[col][row] == 's') {
+                    gp.tileManager.liveMapTile[col][row] = '*';
+                } else if (gp.tileManager.inputMapTile[col][row] == 'b') {
+                    gp.tileManager.liveMapTile[col][row] = '*';
+                } else if (gp.tileManager.inputMapTile[col][row] == 'x') {
+                    gp.tileManager.liveMapTile[col][row] = '*';
                 }
-
             }
         }
     }
@@ -34,9 +65,9 @@ public class AssetSetter {
     public void setEnemy() {
         for (int col = 0; col < gp.maxWorldCol; col++) {
             for (int row = 0; row < gp.maxWorldRow; row++) {
-                if (gp.tileManager.mapTile[col][row] == '1') {
+                if (gp.tileManager.liveMapTile[col][row] == '1') {
                     gp.enemy.add(new Balloom(gp, col, row));
-                } else if (gp.tileManager.mapTile[col][row] == '2') {
+                } else if (gp.tileManager.liveMapTile[col][row] == '2') {
                     gp.enemy.add(new Oneal(gp, col, row));
                 }
             }

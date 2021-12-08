@@ -1,7 +1,6 @@
 package src.entities;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import src.bomb.Bomb;
 import src.entities.enemy.EnemyManager;
@@ -12,7 +11,7 @@ public class Bomber extends Entity {
     // GamePane gp;
     KeyHandler keyHandler;
 
-    public int hasBomb = 1;
+    public int bombs = 1;
     public int lives = 1;
     public int score = 0;
 
@@ -67,89 +66,113 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        if (keyHandler.up || keyHandler.down || keyHandler.left || keyHandler.right || keyHandler.space) {
-            if (keyHandler.up) {
-                direction = "up";
-            } else if (keyHandler.down) {
-                direction = "down";
-            } else if (keyHandler.left) {
-                direction = "left";
-            } else if (keyHandler.right) {
-                direction = "right";
-            }
-            if (keyHandler.space) {
-                if (hasBomb > 0) {
-                    int col, row;
-                    if ((x % gp.tileSize) >= (gp.tileSize / 2) + 4) {
-                        col = (x / gp.tileSize) + 1;
-                    } else {
-                        col = x / gp.tileSize;
-                    }
+        isDead = lives <= 0;
 
-                    if ((y % gp.tileSize) >= gp.tileSize / 2) {
-                        row = y / gp.tileSize + 1;
-                    } else {
-                        row = y / gp.tileSize;
-                    }
+        // if (!player.isExploded && !player.isDead) {
+        // player.update();
+        // } else if (player.isDead) {
+        // // gameState = GAME_OVER_STATE;
+        // } else if (player.isExploded) {
+        // if () {
 
-                    Bomb bomb = new Bomb(gp, col, row);
-                    if (bomb.checkBomb(bomb)) {
-                        gp.bombs.add(bomb);
-                        hasBomb--;
-                    }
-                }
-                direction = "set bomb";
-            }
+        // }
+        // // gameState = NEW_GAME_STATE;
+        // player.loseLive();
+        // }
 
-            collisionOn = false;
-            // check tile collision
-            gp.collisionChecker.checkTile(this);
-            // check object collision
-            int objIndex = gp.collisionChecker.checkObject(this, true);
-            pickUpObject(objIndex);
-            // check enemy collision
-            int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
-            if (enemyIndex != 999) {
-                Entity enemy = gp.enemy.get(enemyIndex);
-                hitEnemy(enemy);
-                return;
-            }
-
-            // if collision is false , player can move
-            if (!collisionOn) {
-                switch (direction) {
-                    case "up":
-                        y -= speed;
-                        break;
-
-                    case "down":
-                        y += speed;
-                        break;
-
-                    case "left":
-                        x -= speed;
-                        break;
-
-                    case "right":
-                        x += speed;
-                        break;
-                }
-            }
-
-            spriteCounter++;
-            if (spriteCounter > 10) {
-                if (spriteNum != 2) {
-                    spriteNum = 2;
-                } else if (spriteNum != 1) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
+        // System.out.println(isExploded);
+        // System.out.println(lives);
+        if (isDead) {
+            // gp.gameState = gp.GAME_OVER_STATE;
+        } else if (isExploded) {
+            // loseLive();
         } else {
-            standCounter++;
-            if (standCounter == 20) {
-                spriteNum = 0;
-                standCounter = 0;
+            if (keyHandler.up || keyHandler.down || keyHandler.left || keyHandler.right || keyHandler.space) {
+                if (keyHandler.up) {
+                    direction = "up";
+                } else if (keyHandler.down) {
+                    direction = "down";
+                } else if (keyHandler.left) {
+                    direction = "left";
+                } else if (keyHandler.right) {
+                    direction = "right";
+                }
+                if (keyHandler.space) {
+                    if (bombs > 0) {
+                        int col, row;
+                        if ((x % gp.tileSize) >= (gp.tileSize / 2) + 4) {
+                            col = (x / gp.tileSize) + 1;
+                        } else {
+                            col = x / gp.tileSize;
+                        }
+
+                        if ((y % gp.tileSize) >= gp.tileSize / 2) {
+                            row = y / gp.tileSize + 1;
+                        } else {
+                            row = y / gp.tileSize;
+                        }
+
+                        Bomb bomb = new Bomb(gp, col, row);
+                        if (bomb.checkBomb(bomb)) {
+                            bomb.setBomb = true;
+                            gp.bombs.add(bomb);
+                            bombs--;
+                        }
+                    }
+                    direction = "set bomb";
+                }
+
+                collisionOn = false;
+                // check tile collision
+                gp.collisionChecker.checkTile(this);
+                // check object collision
+                int objIndex = gp.collisionChecker.checkObject(this, true);
+                pickUpObject(objIndex);
+                // check enemy collision
+                int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
+                if (enemyIndex != 999) {
+                    Entity enemy = gp.enemy.get(enemyIndex);
+                    hitEnemy(enemy);
+                    return;
+                }
+
+                // System.out.println(collisionOn);
+                // if collision is false , player can move
+                if (!collisionOn) {
+                    switch (direction) {
+                        case "up":
+                            y -= speed;
+                            break;
+
+                        case "down":
+                            y += speed;
+                            break;
+
+                        case "left":
+                            x -= speed;
+                            break;
+
+                        case "right":
+                            x += speed;
+                            break;
+                    }
+                }
+
+                spriteCounter++;
+                if (spriteCounter > 10) {
+                    if (spriteNum != 2) {
+                        spriteNum = 2;
+                    } else if (spriteNum != 1) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
+                }
+            } else {
+                standCounter++;
+                if (standCounter == 20) {
+                    spriteNum = 0;
+                    standCounter = 0;
+                }
             }
         }
     }
@@ -157,6 +180,8 @@ public class Bomber extends Entity {
     public void pickUpObject(int i) {
         if (i != 999) {
             String objName = gp.obj.get(i).name;
+            int col = gp.obj.get(i).x / gp.tileSize;
+            int row = gp.obj.get(i).y / gp.tileSize;
             switch (objName) {
                 case "speed":
                     speed = 5;
@@ -167,10 +192,14 @@ public class Bomber extends Entity {
                     gp.obj.remove(i);
                     break;
                 case "bombs":
-                    hasBomb++;
+                    bombs++;
                     gp.obj.remove(i);
                     break;
+                case "portal":
+                    gp.gameState = gp.GAME_WIN_STATE;
+                    break;
             }
+            gp.tileManager.liveMapTile[col][row] = ' ';
         }
     }
 
@@ -178,67 +207,93 @@ public class Bomber extends Entity {
         if (entity instanceof EnemyManager) {
             EnemyManager enemy = (EnemyManager) entity;
             String enemyName = enemy.name;
-            System.out.println(enemyName);
             // switch (enemyName) {
             // case "enemy":
             gp.enemy.remove(enemy);
-            lives--;
-            System.out.println(lives);
+            // loseLive();
+            isExploded = true;
             // break;
             // }
         }
     }
 
+    // public void loseLive() {
+    // lives--;
+    // System.out.println(lives);
+    // isExploded = true;
+    // }
+
     @Override
     public void render(GraphicsContext gc) {
         // Image image = null;
 
-        switch (direction) {
-            case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-                if (spriteNum == 0) {
-                    image = stand_up;
-                }
-                break;
-            case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                if (spriteNum == 0) {
-                    image = stand_down;
-                }
-                break;
-            case "left":
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-                if (spriteNum == 0) {
-                    image = stand_left;
-                }
-                break;
-            case "right":
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-                if (spriteNum == 0) {
-                    image = stand_right;
-                }
-                break;
+        if (!isExploded) {
+            switch (direction) {
+                case "up":
+                    if (spriteNum == 1) {
+                        image = up1;
+                    }
+                    if (spriteNum == 2) {
+                        image = up2;
+                    }
+                    if (spriteNum == 0) {
+                        image = stand_up;
+                    }
+                    break;
+                case "down":
+                    if (spriteNum == 1) {
+                        image = down1;
+                    }
+                    if (spriteNum == 2) {
+                        image = down2;
+                    }
+                    if (spriteNum == 0) {
+                        image = stand_down;
+                    }
+                    break;
+                case "left":
+                    if (spriteNum == 1) {
+                        image = left1;
+                    }
+                    if (spriteNum == 2) {
+                        image = left2;
+                    }
+                    if (spriteNum == 0) {
+                        image = stand_left;
+                    }
+                    break;
+                case "right":
+                    if (spriteNum == 1) {
+                        image = right1;
+                    }
+                    if (spriteNum == 2) {
+                        image = right2;
+                    }
+                    if (spriteNum == 0) {
+                        image = stand_right;
+                    }
+                    break;
 
+            }
+        } else {
+            explodeCounter++;
+            if (explodeCounter > 0 && explodeCounter <= 15) {
+                if (explodeCounter == 1) {
+                    lives--;
+                }
+                image = dead1;
+            } else if (explodeCounter > 15 && explodeCounter <= 30) {
+                image = dead2;
+            } else if (explodeCounter > 30 && explodeCounter <= 45) {
+                image = dead3;
+            } else {
+                image = null;
+                if (isDead) {
+                    gp.gameState = gp.GAME_OVER_STATE;
+                } else {
+                    gp.gameState = gp.NEW_GAME_STATE;
+                }
+            }
         }
         gc.drawImage(image, x, y);
     }

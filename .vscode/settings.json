@@ -16,5 +16,6 @@
         "f:\\2Study\\2Nam2\\CS\\Setups\\javafx\\javafx-sdk-17.0.0.1\\lib\\javafx-swt.jar",
         "f:\\2Study\\2Nam2\\CS\\Setups\\fontawesomefx-8.2.jar"
     ],
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "files.defaultLanguage": "${activeEditorLanguage}"
 }
