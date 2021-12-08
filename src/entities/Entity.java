@@ -23,9 +23,11 @@ public class Entity {
     public int solidAreaDefaultY;
 
     public boolean collisionOn = false;
-    public boolean explode = false;
-    public int actionLockCounter = 0;
+    public boolean explode = true;
+    public boolean isExploded = false;
     public boolean isDead = false;
+
+    public int actionLockCounter = 0;
 
     // Tọa độ X tính từ góc trái trên trong Canvas
     public int x;

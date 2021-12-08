@@ -9,11 +9,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import src.bomb.Bomb;
 import src.entities.Bomber;
 import src.entities.Entity;
 import src.entities.enemy.EnemyManager;
 // import src.graphics.Sprite;
 import src.object.ObjectManager;
+import src.tile.Brick;
 import src.tile.TileManager;
 
 public class GamePane {
@@ -49,6 +51,7 @@ public class GamePane {
 
     // map
     public TileManager tileManager;
+    public List<Brick> bricks = new ArrayList<Brick>();
     // objects
     public List<ObjectManager> obj = new ArrayList<ObjectManager>();
     // asset
@@ -57,6 +60,8 @@ public class GamePane {
     public Bomber player;
     // enemy
     public List<Entity> enemy = new ArrayList<Entity>();
+    // bomb
+    public List<Bomb> bombs = new ArrayList<Bomb>();
     // collision checker
     public CollisionChecker collisionChecker;
 
@@ -136,6 +141,12 @@ public class GamePane {
                     enemy.get(i).update();
                 }
             }
+            // bomb
+            for (int i = 0; i < bombs.size(); i++) {
+                if (bombs.get(i) != null) {
+                    bombs.get(i).update();
+                }
+            }
         }
         if (gameState == PAUSE_STATE) {
             // nothing
@@ -152,6 +163,18 @@ public class GamePane {
         for (int i = 0; i < obj.size(); i++) {
             if (obj.get(i) != null) {
                 obj.get(i).render(gc);
+            }
+        }
+
+        // draw bomb
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).spriteCounter >= Bomb.explodeTime) {
+                bombs.remove(i);
+                player.hasBomb++;
+            } else {
+                if (bombs.get(i) != null) {
+                    bombs.get(i).render(gc);
+                }
             }
         }
 

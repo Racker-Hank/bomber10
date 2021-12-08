@@ -20,6 +20,7 @@ public class EnemyManager extends Entity {
         gp.collisionChecker.checkEntity(this, gp.enemy);
         if (gp.collisionChecker.checkPlayer(this, true)) {
             gp.player.hitEnemy(this);
+            return;
         }
         // if collision is false , entity can move
         if (!collisionOn) {
@@ -40,6 +41,9 @@ public class EnemyManager extends Entity {
                     x += speed;
                     break;
             }
+        } else {
+            update();
+            return;
         }
 
         spriteCounter++;

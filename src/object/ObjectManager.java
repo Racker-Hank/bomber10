@@ -23,6 +23,6 @@ public class ObjectManager {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(image, x, y);
-        gc.drawImage(gp.tileManager.tile[3].image, x, y);
+        // gc.drawImage(gp.tileManager.tile[3].image, x, y);
     }
 }

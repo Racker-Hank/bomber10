@@ -2,6 +2,7 @@ package src.gui.game;
 
 import src.entities.enemy.Balloom;
 import src.entities.enemy.Oneal;
+import src.object.Bombs;
 import src.object.Flames;
 import src.object.Portal;
 import src.object.Speed;
@@ -20,6 +21,8 @@ public class AssetSetter {
                     gp.obj.add(new Flames(gp, col, row));
                 } else if (gp.tileManager.mapTile[col][row] == 's') {
                     gp.obj.add(new Speed(gp, col, row));
+                } else if (gp.tileManager.mapTile[col][row] == 'b') {
+                    gp.obj.add(new Bombs(gp, col, row));
                 } else if (gp.tileManager.mapTile[col][row] == 'x') {
                     gp.obj.add(new Portal(gp, col, row));
                 }

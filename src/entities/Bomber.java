@@ -3,6 +3,7 @@ package src.entities;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
+import src.bomb.Bomb;
 import src.entities.enemy.EnemyManager;
 import src.gui.game.GamePane;
 import src.gui.game.KeyHandler;
@@ -13,6 +14,7 @@ public class Bomber extends Entity {
 
     public int hasBomb = 1;
     public int lives = 1;
+    public int score = 0;
 
     int standCounter = 0;
 
@@ -65,7 +67,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        if (keyHandler.up || keyHandler.down || keyHandler.left || keyHandler.right) {
+        if (keyHandler.up || keyHandler.down || keyHandler.left || keyHandler.right || keyHandler.space) {
             if (keyHandler.up) {
                 direction = "up";
             } else if (keyHandler.down) {
@@ -74,6 +76,29 @@ public class Bomber extends Entity {
                 direction = "left";
             } else if (keyHandler.right) {
                 direction = "right";
+            }
+            if (keyHandler.space) {
+                if (hasBomb > 0) {
+                    int col, row;
+                    if ((x % gp.tileSize) >= (gp.tileSize / 2) + 4) {
+                        col = (x / gp.tileSize) + 1;
+                    } else {
+                        col = x / gp.tileSize;
+                    }
+
+                    if ((y % gp.tileSize) >= gp.tileSize / 2) {
+                        row = y / gp.tileSize + 1;
+                    } else {
+                        row = y / gp.tileSize;
+                    }
+
+                    Bomb bomb = new Bomb(gp, col, row);
+                    if (bomb.checkBomb(bomb)) {
+                        gp.bombs.add(bomb);
+                        hasBomb--;
+                    }
+                }
+                direction = "set bomb";
             }
 
             collisionOn = false;
@@ -87,6 +112,7 @@ public class Bomber extends Entity {
             if (enemyIndex != 999) {
                 Entity enemy = gp.enemy.get(enemyIndex);
                 hitEnemy(enemy);
+                return;
             }
 
             // if collision is false , player can move
@@ -137,8 +163,11 @@ public class Bomber extends Entity {
                     gp.obj.remove(i);
                     break;
                 case "flames":
-                    // speed = 5;
-                    System.out.println("flames");
+                    Bomb.bomb_radius++;
+                    gp.obj.remove(i);
+                    break;
+                case "bombs":
+                    hasBomb++;
                     gp.obj.remove(i);
                     break;
             }

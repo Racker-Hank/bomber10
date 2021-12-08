@@ -33,16 +33,12 @@ public class TileManager {
         // wall
         tile[1] = new Wall();
         tile[1].image = gp.getImage.wall;
-        tile[1].collision = true;
         tile[2] = new Wall();
         tile[2].image = gp.getImage.wall1;
-        tile[2].collision = true;
 
         // brick
         tile[3] = new Brick();
         tile[3].image = gp.getImage.brick;
-        tile[3].collision = true;
-        tile[3].explode = true;
     }
 
     public void loadMap() {
@@ -81,6 +77,7 @@ public class TileManager {
                 } else if (mapTile[col][row] == '#') {
                     gc.drawImage(tile[2].image, col * gp.tileSize, row * gp.tileSize);
                 } else if (mapTile[col][row] == '*') {
+                    gp.bricks.add(new Brick(col * gp.tileSize, row * gp.tileSize, tile[3].image));
                     gc.drawImage(tile[3].image, col * gp.tileSize, row * gp.tileSize);
                 } else {
                     gc.drawImage(tile[0].image, col * gp.tileSize, row * gp.tileSize);

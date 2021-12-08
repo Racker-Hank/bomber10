@@ -42,9 +42,10 @@ public class Oneal extends EnemyManager {
     public void setAction() {
         actionLockCounter++;
 
-        if (actionLockCounter == 90) {
+        if (actionLockCounter == 120) {
             Random rand = new Random();
             int i = rand.nextInt(100) + 1; // pick a number from 1 to 100
+            int s = rand.nextInt(100) + 1; // pick a number from 1 to 100
 
             if (i <= 25) {
                 direction = "up";
@@ -57,6 +58,16 @@ public class Oneal extends EnemyManager {
             }
             if (i > 75 && i <= 100) {
                 direction = "right";
+            }
+
+            if (s <= 30) {
+                speed = 1;
+            }
+            if (s > 30 && s <= 80) {
+                speed = 2;
+            }
+            if (s > 80 && s <= 100) {
+                speed = 3;
             }
 
             actionLockCounter = 0;
