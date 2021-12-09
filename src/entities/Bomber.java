@@ -215,9 +215,10 @@ public class Bomber extends Entity {
             String enemyName = enemy.name;
             // switch (enemyName) {
             // case "enemy":
-            gp.enemy.remove(enemy);
+            // gp.enemy.remove(enemy);
             // loseLive();
             isExploded = true;
+            enemy.isExploded = true;
             // break;
             // }
         }

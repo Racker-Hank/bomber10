@@ -212,27 +212,28 @@ public class Bomb {
         int bombRightX = (int) (bombX + solidArea.getX() + solidArea.getWidth());
         int bombTopY = (int) (bombY + solidArea.getY());
         int bombBottomY = (int) (bombY + solidArea.getY() + solidArea.getHeight());
-        // System.out.println(setBomb);
+
+        // if (this.spriteCounter < this.toExplodeTime) {
+
+        // } else {
+        // if (entity instanceof Bomber) {
+        // System.out.println("its me");
+        // }
+        // entity.isExploded = true;
+        // }
+
         if ((((entityLeftX > bombLeftX && entityLeftX < bombRightX)
                 || (entityRightX > bombLeftX && entityRightX < bombRightX))
                 && ((entityTopY > bombTopY && entityTopY < bombBottomY)
                         || (entityBottomY > bombTopY && entityBottomY < bombBottomY)))) {
-            // System.out.println(1234);
-            System.out.println(spriteCounter < toExplodeTime);
             if (spriteCounter < toExplodeTime) {
                 if (setBomb && entity instanceof Bomber) {
                     entity.collisionOn = false;
                 } else {
                     entity.collisionOn = true;
-                    // System.out.println("enemy");
                 }
             } else {
-                if (entity instanceof EnemyManager) {
-                    gp.player.score += 200;
-                    System.out.println(gp.player.score);
-                }
                 entity.isExploded = true;
-                System.out.println("sdfasd");
             }
         } else {
             if (entity instanceof Bomber) {
@@ -295,8 +296,8 @@ public class Bomb {
 
     public void drawFlame(AtomicBoolean direction, Image image, int bombX, int bombY) {
         if (direction.get() && checkTile(bombX, bombY)) {
-            // checkEnemy(bombX, bombY);
-            // checkPlayer(bombX, bombY);
+            checkEnemy(bombX, bombY);
+            checkPlayer(bombX, bombY);
             gc.drawImage(image, bombX, bombY);
         } else {
             direction.set(false);

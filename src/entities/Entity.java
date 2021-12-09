@@ -88,7 +88,13 @@ public class Entity {
             }
         } else {
             explodeCounter++;
-            if (explodeCounter >= 0 && explodeCounter <= 15) {
+            if (explodeCounter > 0 && explodeCounter <= 15) {
+                if (explodeCounter == 1) {
+                    if (this instanceof EnemyManager) {
+                        gp.player.score += 200;
+                        System.out.println(gp.player.score);
+                    }
+                }
                 image = dead1;
             } else if (explodeCounter > 15 && explodeCounter <= 30) {
                 image = dead2;

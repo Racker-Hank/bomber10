@@ -105,7 +105,9 @@ public class menuController implements Initializable {
         Stage primaryStage;
         primaryStage = (Stage) root.getScene().getWindow();
         GamePane gamePane = new GamePane();
-        gamePane.setupGame(primaryStage);
+        // primaryStage.hide();
+        // gamePane.setupGame();
+        primaryStage.setScene(gamePane.gameScene);
     }
 
     public void quit() {

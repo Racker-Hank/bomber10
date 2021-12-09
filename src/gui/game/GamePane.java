@@ -82,6 +82,7 @@ public class GamePane {
         // create game pane
         initGamePane();
         initGame();
+        setupGame();
     }
 
     public void initGamePane() {
@@ -111,9 +112,9 @@ public class GamePane {
         collisionChecker = new CollisionChecker(this);
     }
 
-    public void setupGame(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        primaryStage.hide();
+    public void setupGame() {
+        // this.primaryStage = primaryStage;
+        // primaryStage.hide();
         gameState = PLAY_STATE;
 
         // set objects (power ups)
@@ -126,7 +127,7 @@ public class GamePane {
         // game loop
         createGameLoop();
 
-        gameStage.show();
+        // gameStage.show();
     }
 
     public void createGameLoop() {
