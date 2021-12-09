@@ -123,6 +123,11 @@ public class Bomber extends Entity {
                 }
 
                 collisionOn = false;
+                // check bomb collision
+                for (int i = 0; i < gp.bombs.size(); i++) {
+                    Bomb bomb = gp.bombs.get(i);
+                    bomb.checkEntity(this, bomb.x, bomb.y);
+                }
                 // check tile collision
                 gp.collisionChecker.checkTile(this);
                 // check object collision
@@ -136,7 +141,8 @@ public class Bomber extends Entity {
                     return;
                 }
 
-                // System.out.println(collisionOn);
+                // System.out.println(collisionOn + "10");
+
                 // if collision is false , player can move
                 if (!collisionOn) {
                     switch (direction) {
