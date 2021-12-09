@@ -201,6 +201,7 @@ public class Bomb {
     }
 
     public void checkEntity(Entity entity, int bombX, int bombY) {
+
         Rectangle solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
         // is in area?
         int entityLeftX = (int) (entity.x + entity.solidArea.getX());
@@ -251,6 +252,7 @@ public class Bomb {
                     entity.solidArea.setY(entity.solidArea.getY() - entity.speed);
                     if (entity.solidArea.getBoundsInParent()
                             .intersects(solidArea.getBoundsInParent())) {
+
                         entity.collisionOn = true;
                     }
                     break;
@@ -261,6 +263,7 @@ public class Bomb {
                             .intersects(solidArea.getBoundsInParent())) {
                         entity.collisionOn = true;
                     }
+
                     break;
 
                 case "left":
@@ -278,6 +281,7 @@ public class Bomb {
                         entity.collisionOn = true;
                     }
                     break;
+
             }
             entity.solidArea.setX(entity.solidAreaDefaultX);
             entity.solidArea.setY(entity.solidAreaDefaultY);
@@ -302,6 +306,7 @@ public class Bomb {
         } else {
             direction.set(false);
         }
+
     }
 
     // check xem co them duoc bom o day khong
