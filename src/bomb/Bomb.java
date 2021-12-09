@@ -1,5 +1,7 @@
 package src.bomb;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -40,6 +42,7 @@ public class Bomb {
     public Bomb(GamePane gp) {
         this.gp = gp;
         setImage();
+        setBomb = true;
     }
 
     public Bomb(GamePane gp, int x, int y) {
@@ -112,128 +115,59 @@ public class Bomb {
         this.gc = gc;
         // System.out.println(spriteNum);
         if (spriteNum == 1) {
-            draw(bomb, x, y);
+            drawFlame(new AtomicBoolean(true), bomb, x, y);
         } else if (spriteNum == 2) {
-            draw(bomb1, x, y);
+            drawFlame(new AtomicBoolean(true), bomb1, x, y);
         } else if (spriteNum == 3) {
-            draw(bomb2, x, y);
+            drawFlame(new AtomicBoolean(true), bomb2, x, y);
         } else if (spriteNum == 4) {
-            draw(bomb_exploded, x, y);
-            boolean up = true, down = true, left = true, right = true;
+            drawFlame(new AtomicBoolean(true), bomb_exploded, x, y);
+            AtomicBoolean up = new AtomicBoolean(true), down = new AtomicBoolean(true), left = new AtomicBoolean(true),
+                    right = new AtomicBoolean(true);
             for (int i = 1; i < bomb_radius; i++) {
                 int mid = i * gp.tileSize;
-                if (up && checkTile(x, y - mid)) {
-                    draw(flame_mid_ver, x, y - mid);
-                } else {
-                    up = false;
-                }
-                if (down && checkTile(x, y + mid)) {
-                    draw(flame_mid_ver, x, y + mid);
-                } else {
-                    down = false;
-                }
-                if (left && checkTile(x - mid, y)) {
-                    draw(flame_mid_hor, x - mid, y);
-                } else {
-                    left = false;
-                }
-                if (right && checkTile(x + mid, y)) {
-                    draw(flame_mid_hor, x + mid, y);
-                } else {
-                    right = false;
-                }
+                drawFlame(up, flame_mid_ver, x, y - mid);
+                drawFlame(down, flame_mid_ver, x, y + mid);
+                drawFlame(left, flame_mid_hor, x - mid, y);
+                drawFlame(right, flame_mid_hor, x + mid, y);
             }
             int last = bomb_radius * gp.tileSize;
-            if (up && checkTile(x, y - last)) {
-                draw(flame_top_ver, x, y - last);
-            }
-            if (down && checkTile(x, y + last)) {
-                draw(flame_bot_ver, x, y + last);
-            }
-            if (left && checkTile(x - last, y)) {
-                draw(flame_left_hor, x - last, y);
-            }
-            if (right && checkTile(x + last, y)) {
-                draw(flame_right_hor, x + last, y);
-            }
+            drawFlame(up, flame_top_ver, x, y - last);
+            drawFlame(down, flame_bot_ver, x, y + last);
+            drawFlame(left, flame_left_hor, x - last, y);
+            drawFlame(right, flame_right_hor, x + last, y);
         } else if (spriteNum == 5) {
-            draw(bomb_exploded1, x, y);
-            boolean up = true, down = true, left = true, right = true;
+            drawFlame(new AtomicBoolean(true), bomb_exploded1, x, y);
+            AtomicBoolean up = new AtomicBoolean(true), down = new AtomicBoolean(true), left = new AtomicBoolean(true),
+                    right = new AtomicBoolean(true);
             for (int i = 1; i < bomb_radius; i++) {
                 int mid = i * gp.tileSize;
-                if (up && checkTile(x, y - mid)) {
-                    draw(flame_mid_ver1, x, y - mid);
-                } else {
-                    up = false;
-                }
-                if (down && checkTile(x, y + mid)) {
-                    draw(flame_mid_ver1, x, y + mid);
-                } else {
-                    down = false;
-                }
-                if (left && checkTile(x - mid, y)) {
-                    draw(flame_mid_hor1, x - mid, y);
-                } else {
-                    left = false;
-                }
-                if (right && checkTile(x + mid, y)) {
-                    draw(flame_mid_hor1, x + mid, y);
-                } else {
-                    right = false;
-                }
+                drawFlame(up, flame_mid_ver1, x, y - mid);
+                drawFlame(down, flame_mid_ver1, x, y + mid);
+                drawFlame(left, flame_mid_hor1, x - mid, y);
+                drawFlame(right, flame_mid_hor1, x + mid, y);
             }
             int last = bomb_radius * gp.tileSize;
-            if (up && checkTile(x, y - last)) {
-                draw(flame_top_ver1, x, y - last);
-            }
-            if (down && checkTile(x, y + last)) {
-                draw(flame_bot_ver1, x, y + last);
-            }
-            if (left && checkTile(x - last, y)) {
-                draw(flame_left_hor1, x - last, y);
-            }
-            if (right && checkTile(x + last, y)) {
-                draw(flame_right_hor1, x + last, y);
-            }
+            drawFlame(up, flame_top_ver1, x, y - last);
+            drawFlame(down, flame_bot_ver1, x, y + last);
+            drawFlame(left, flame_left_hor1, x - last, y);
+            drawFlame(right, flame_right_hor1, x + last, y);
         } else if (spriteNum == 6) {
-            draw(bomb_exploded2, x, y);
-            boolean up = true, down = true, left = true, right = true;
+            drawFlame(new AtomicBoolean(true), bomb_exploded2, x, y);
+            AtomicBoolean up = new AtomicBoolean(true), down = new AtomicBoolean(true), left = new AtomicBoolean(true),
+                    right = new AtomicBoolean(true);
             for (int i = 1; i < bomb_radius; i++) {
                 int mid = i * gp.tileSize;
-                if (up && checkTile(x, y - mid)) {
-                    draw(flame_mid_ver2, x, y - mid);
-                } else {
-                    up = false;
-                }
-                if (down && checkTile(x, y + mid)) {
-                    draw(flame_mid_ver2, x, y + mid);
-                } else {
-                    down = false;
-                }
-                if (left && checkTile(x - mid, y)) {
-                    draw(flame_mid_hor2, x - mid, y);
-                } else {
-                    left = false;
-                }
-                if (right && checkTile(x + mid, y)) {
-                    draw(flame_mid_hor2, x + mid, y);
-                } else {
-                    right = false;
-                }
+                drawFlame(up, flame_mid_ver2, x, y - mid);
+                drawFlame(down, flame_mid_ver2, x, y + mid);
+                drawFlame(left, flame_mid_hor2, x - mid, y);
+                drawFlame(right, flame_mid_hor2, x + mid, y);
             }
             int last = bomb_radius * gp.tileSize;
-            if (up && checkTile(x, y - last)) {
-                draw(flame_top_ver2, x, y - last);
-            }
-            if (down && checkTile(x, y + last)) {
-                draw(flame_bot_ver2, x, y + last);
-            }
-            if (left && checkTile(x - last, y)) {
-                draw(flame_left_hor2, x - last, y);
-            }
-            if (right && checkTile(x + last, y)) {
-                draw(flame_right_hor2, x + last, y);
-            }
+            drawFlame(up, flame_top_ver2, x, y - last);
+            drawFlame(down, flame_bot_ver2, x, y + last);
+            drawFlame(left, flame_left_hor2, x - last, y);
+            drawFlame(right, flame_right_hor2, x + last, y);
         }
     }
 
@@ -248,8 +182,8 @@ public class Bomb {
         // gp.tileSize] + "yup");
         col = col / gp.tileSize;
         row = row / gp.tileSize;
-        char c = gp.tileManager.liveMapTile[col][row];
         if (col > 0 && col < gp.maxWorldCol && row > 0 & row < gp.maxWorldRow) {
+            char c = gp.tileManager.liveMapTile[col][row];
             // if (gp.tileManager.liveMapTile[col / gp.tileSize][row / gp.tileSize] == ' ')
             // {
             if (c == ' ' || c == 'p' || c == '1' || c == '2') {
@@ -267,64 +201,82 @@ public class Bomb {
     }
 
     public void checkEntity(Entity entity, int bombX, int bombY) {
-        if (!entity.isExploded) {
-            Rectangle solidArea = new Rectangle(bombX, bombY, 24, 24);
-            // System.out.println(bombX + " " + bombY);
+        Rectangle solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
+        // is in area?
+        int entityLeftX = (int) (entity.x + entity.solidArea.getX());
+        int entityRightX = (int) (entity.x + entity.solidArea.getX() + entity.solidArea.getWidth());
+        int entityTopY = (int) (entity.y + entity.solidArea.getY());
+        int entityBottomY = (int) (entity.y + entity.solidArea.getY() + entity.solidArea.getHeight());
 
+        int bombLeftX = (int) (bombX + solidArea.getX());
+        int bombRightX = (int) (bombX + solidArea.getX() + solidArea.getWidth());
+        int bombTopY = (int) (bombY + solidArea.getY());
+        int bombBottomY = (int) (bombY + solidArea.getY() + solidArea.getHeight());
+        // System.out.println(setBomb);
+        if ((((entityLeftX > bombLeftX && entityLeftX < bombRightX)
+                || (entityRightX > bombLeftX && entityRightX < bombRightX))
+                && ((entityTopY > bombTopY && entityTopY < bombBottomY)
+                        || (entityBottomY > bombTopY && entityBottomY < bombBottomY)))) {
+            // System.out.println(1234);
+            System.out.println(spriteCounter < toExplodeTime);
+            if (spriteCounter < toExplodeTime) {
+                if (setBomb && entity instanceof Bomber) {
+                    entity.collisionOn = false;
+                } else {
+                    entity.collisionOn = true;
+                    // System.out.println("enemy");
+                }
+            } else {
+                if (entity instanceof EnemyManager) {
+                    gp.player.score += 200;
+                    System.out.println(gp.player.score);
+                }
+                entity.isExploded = true;
+                System.out.println("sdfasd");
+            }
+        } else {
+            if (entity instanceof Bomber) {
+                setBomb = false;
+            }
+            // get entity's solid area position
             entity.solidArea.setX(entity.x + entity.solidArea.getX());
             entity.solidArea.setY(entity.y + entity.solidArea.getY());
 
-            if (entity.solidArea.getBoundsInParent().intersects(solidArea.getBoundsInParent())) {
-                if (spriteCounter < toExplodeTime) {
-                    // System.out.println(setBomb + "1");
-                    // System.out.println(entity instanceof Bomber);
-                    // System.out.println((entity.x == x && entity.y == y) + "4");
-                    // if (setBomb && entity instanceof Bomber && entity.x == x && entity.y == y) {
-                    // // System.out.println("f off");
-                    // entity.collisionOn = false;
-                    // System.out.println(setBomb + "2");
-                    // } else {
-                    // setBomb = false;
-                    // entity.collisionOn = true;
-                    // // System.out.println(setBomb + "3");
-                    // }
-                    // entity.collisionOn = true;
-                    // if (entity instanceof Bomber) {
-                    // // check player position relative to bomb
-                    // int diffXBombLeft = (int) (entity.solidArea.getX() +
-                    // entity.solidArea.getWidth() - bombX);
-                    // int diffXBombRight = (int) (bombX + solidArea.getWidth() -
-                    // entity.solidArea.getX());
-                    // int diffYBombTop = (int) (entity.solidArea.getY() +
-                    // entity.solidArea.getHeight() - bombY);
-                    // int diffYBombBottom = (int) (bombY + solidArea.getHeight() -
-                    // entity.solidArea.getY());
-                    // if (diffXBombLeft <= 4 || diffXBombRight <= 4 || diffYBombTop <= 4
-                    // || diffYBombBottom <= 4) {
-                    // setBomb = false;
-                    // System.out.println("out");
-                    // }
-                    // if (setBomb) {
-                    // entity.collisionOn = false;
-                    // } else {
-                    // entity.collisionOn = true;
-                    // }
-                    System.out.println("setBomb");
-                    if (setBomb && entity instanceof Bomber) {
-                        entity.collisionOn = false;
-                    } else {
+            // get object's solid area position
+            solidArea.setX(bombX + solidArea.getX());
+            solidArea.setY(bombY + solidArea.getY());
+            switch (entity.direction) {
+                case "up":
+                    entity.solidArea.setY(entity.solidArea.getY() - entity.speed);
+                    if (entity.solidArea.getBoundsInParent()
+                            .intersects(solidArea.getBoundsInParent())) {
                         entity.collisionOn = true;
                     }
-                } else {
-                    if (entity instanceof EnemyManager) {
-                        gp.player.score += 200;
+                    break;
+
+                case "down":
+                    entity.solidArea.setY(entity.solidArea.getY() + entity.speed);
+                    if (entity.solidArea.getBoundsInParent()
+                            .intersects(solidArea.getBoundsInParent())) {
+                        entity.collisionOn = true;
                     }
-                    entity.isExploded = true;
-                }
-            } else {
-                setBomb = false;
-                entity.collisionOn = false;
-                System.out.println("chjeck");
+                    break;
+
+                case "left":
+                    entity.solidArea.setX(entity.solidArea.getX() - entity.speed);
+                    if (entity.solidArea.getBoundsInParent()
+                            .intersects(solidArea.getBoundsInParent())) {
+                        entity.collisionOn = true;
+                    }
+                    break;
+
+                case "right":
+                    entity.solidArea.setX(entity.solidArea.getX() + entity.speed);
+                    if (entity.solidArea.getBoundsInParent()
+                            .intersects(solidArea.getBoundsInParent())) {
+                        entity.collisionOn = true;
+                    }
+                    break;
             }
             entity.solidArea.setX(entity.solidAreaDefaultX);
             entity.solidArea.setY(entity.solidAreaDefaultY);
@@ -341,10 +293,14 @@ public class Bomb {
         checkEntity(gp.player, bombX, bombY);
     }
 
-    public void draw(Image image, int bombX, int bombY) {
-        checkEnemy(bombX, bombY);
-        checkPlayer(bombX, bombY);
-        gc.drawImage(image, bombX, bombY);
+    public void drawFlame(AtomicBoolean direction, Image image, int bombX, int bombY) {
+        if (direction.get() && checkTile(bombX, bombY)) {
+            // checkEnemy(bombX, bombY);
+            // checkPlayer(bombX, bombY);
+            gc.drawImage(image, bombX, bombY);
+        } else {
+            direction.set(false);
+        }
     }
 
     // check xem co them duoc bom o day khong

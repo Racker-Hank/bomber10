@@ -1,5 +1,6 @@
 package src.entities.enemy;
 
+import src.bomb.Bomb;
 import src.entities.Entity;
 import src.gui.game.GamePane;
 
@@ -8,6 +9,8 @@ public class EnemyManager extends Entity {
 
     public EnemyManager(GamePane gp) {
         super(gp);
+        solidAreaDefaultX = (int) solidArea.getX();
+        solidAreaDefaultY = (int) solidArea.getY();
     }
 
     @Override
@@ -15,6 +18,10 @@ public class EnemyManager extends Entity {
         setAction();
 
         collisionOn = false;
+        for (int i = 0; i < gp.bombs.size(); i++) {
+            Bomb bomb = gp.bombs.get(i);
+            bomb.checkEntity(this, bomb.x, bomb.y);
+        }
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this, false);
         gp.collisionChecker.checkEntity(this, gp.enemy);
