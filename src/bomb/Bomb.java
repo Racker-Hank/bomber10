@@ -82,7 +82,6 @@ public class Bomb {
 
     public void update() {
         spriteCounter++;
-        // System.out.println(spriteCounter);
         if (spriteCounter > 0 && spriteCounter < toExplodeTime) {
             int loop = 3;
             for (int i = 0; i < loop; i++) {
@@ -113,7 +112,6 @@ public class Bomb {
 
     public void render(GraphicsContext gc) {
         this.gc = gc;
-        // System.out.println(spriteNum);
         if (spriteNum == 1) {
             drawFlame(new AtomicBoolean(true), bomb, x, y);
         } else if (spriteNum == 2) {
@@ -178,8 +176,6 @@ public class Bomb {
         // if (gp.tileManager.liveMapTile[col][row] == '#') {
         // return false;
         // }
-        // System.out.println(gp.tileManager.liveMapTile[col / gp.tileSize][row /
-        // gp.tileSize] + "yup");
         col = col / gp.tileSize;
         row = row / gp.tileSize;
         if (col > 0 && col < gp.maxWorldCol && row > 0 & row < gp.maxWorldRow) {
@@ -201,7 +197,6 @@ public class Bomb {
     }
 
     public void checkEntity(Entity entity, int bombX, int bombY) {
-
         Rectangle solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
         // is in area?
         int entityLeftX = (int) (entity.x + entity.solidArea.getX());
@@ -213,15 +208,6 @@ public class Bomb {
         int bombRightX = (int) (bombX + solidArea.getX() + solidArea.getWidth());
         int bombTopY = (int) (bombY + solidArea.getY());
         int bombBottomY = (int) (bombY + solidArea.getY() + solidArea.getHeight());
-
-        // if (this.spriteCounter < this.toExplodeTime) {
-
-        // } else {
-        // if (entity instanceof Bomber) {
-        // System.out.println("its me");
-        // }
-        // entity.isExploded = true;
-        // }
 
         if ((((entityLeftX > bombLeftX && entityLeftX < bombRightX)
                 || (entityRightX > bombLeftX && entityRightX < bombRightX))

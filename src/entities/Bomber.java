@@ -141,8 +141,6 @@ public class Bomber extends Entity {
                     return;
                 }
 
-                // System.out.println(collisionOn + "10");
-
                 // if collision is false , player can move
                 if (!collisionOn) {
                     switch (direction) {

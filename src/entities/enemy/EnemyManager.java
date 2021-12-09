@@ -64,46 +64,4 @@ public class EnemyManager extends Entity {
             spriteCounter = 0;
         }
     }
-
-    // public void update() {
-    // setAction();
-
-    // collisionOn = false;
-    // gp.collisionChecker.checkTile(this);
-
-    // // if collision is false , player can move
-    // if (!collisionOn) {
-    // switch (direction) {
-    // case "up":
-    // System.out.println("up");
-    // y -= speed;
-    // break;
-
-    // case "down":
-    // System.out.println("down");
-    // y += speed;
-    // break;
-
-    // case "left":
-    // System.out.println("left");
-    // x -= speed;
-    // break;
-
-    // case "right":
-    // System.out.println("right");
-    // x += speed;
-    // break;
-    // }
-    // }
-
-    // spriteCounter++;
-    // if (spriteCounter > 10) {
-    // if (spriteNum != 2) {
-    // spriteNum = 2;
-    // } else if (spriteNum != 1) {
-    // spriteNum = 1;
-    // }
-    // spriteCounter = 0;
-    // }
-    // }
 }
