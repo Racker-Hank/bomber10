@@ -22,6 +22,7 @@ public class EnemyManager extends Entity {
             gp.player.hitEnemy(this);
             return;
         }
+
         // if collision is false , entity can move
         if (!collisionOn) {
             switch (direction) {

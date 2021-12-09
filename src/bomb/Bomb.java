@@ -266,22 +266,52 @@ public class Bomb {
         return false;
     }
 
-    public void checkEntity(Entity entity, int x, int y) {
+    public void checkEntity(Entity entity, int bombX, int bombY) {
         if (!entity.isExploded) {
-            Rectangle solidArea = new Rectangle(x, y, 24, 24);
+            Rectangle solidArea = new Rectangle(bombX, bombY, 24, 24);
+            // System.out.println(bombX + " " + bombY);
 
             entity.solidArea.setX(entity.x + entity.solidArea.getX());
             entity.solidArea.setY(entity.y + entity.solidArea.getY());
 
             if (entity.solidArea.getBoundsInParent().intersects(solidArea.getBoundsInParent())) {
                 if (spriteCounter < toExplodeTime) {
-                    // System.out.println(setBomb);
-                    if (setBomb && entity instanceof Bomber && entity.x == x && entity.y == y) {
-                        // System.out.println("f off");
+                    // System.out.println(setBomb + "1");
+                    // System.out.println(entity instanceof Bomber);
+                    // System.out.println((entity.x == x && entity.y == y) + "4");
+                    // if (setBomb && entity instanceof Bomber && entity.x == x && entity.y == y) {
+                    // // System.out.println("f off");
+                    // entity.collisionOn = false;
+                    // System.out.println(setBomb + "2");
+                    // } else {
+                    // setBomb = false;
+                    // entity.collisionOn = true;
+                    // // System.out.println(setBomb + "3");
+                    // }
+                    // entity.collisionOn = true;
+                    // if (entity instanceof Bomber) {
+                    // // check player position relative to bomb
+                    // int diffXBombLeft = (int) (entity.solidArea.getX() +
+                    // entity.solidArea.getWidth() - bombX);
+                    // int diffXBombRight = (int) (bombX + solidArea.getWidth() -
+                    // entity.solidArea.getX());
+                    // int diffYBombTop = (int) (entity.solidArea.getY() +
+                    // entity.solidArea.getHeight() - bombY);
+                    // int diffYBombBottom = (int) (bombY + solidArea.getHeight() -
+                    // entity.solidArea.getY());
+                    // if (diffXBombLeft <= 4 || diffXBombRight <= 4 || diffYBombTop <= 4
+                    // || diffYBombBottom <= 4) {
+                    // setBomb = false;
+                    // System.out.println("out");
+                    // }
+                    // if (setBomb) {
+                    // entity.collisionOn = false;
+                    // } else {
+                    // entity.collisionOn = true;
+                    // }
+                    System.out.println("setBomb");
+                    if (setBomb && entity instanceof Bomber) {
                         entity.collisionOn = false;
-                        if (entity.x != x || entity.y != y) {
-                            setBomb = false;
-                        }
                     } else {
                         entity.collisionOn = true;
                     }
@@ -291,26 +321,30 @@ public class Bomb {
                     }
                     entity.isExploded = true;
                 }
+            } else {
+                setBomb = false;
+                entity.collisionOn = false;
+                System.out.println("chjeck");
             }
             entity.solidArea.setX(entity.solidAreaDefaultX);
             entity.solidArea.setY(entity.solidAreaDefaultY);
         }
     }
 
-    public void checkEnemy(int x, int y) {
+    public void checkEnemy(int bombX, int bombY) {
         for (int i = 0; i < gp.enemy.size(); i++) {
-            checkEntity(gp.enemy.get(i), x, y);
+            checkEntity(gp.enemy.get(i), bombX, bombY);
         }
     }
 
-    public void checkPlayer(int x, int y) {
-        checkEntity(gp.player, x, y);
+    public void checkPlayer(int bombX, int bombY) {
+        checkEntity(gp.player, bombX, bombY);
     }
 
-    public void draw(Image image, int x, int y) {
-        checkEnemy(x, y);
-        checkPlayer(x, y);
-        gc.drawImage(image, x, y);
+    public void draw(Image image, int bombX, int bombY) {
+        checkEnemy(bombX, bombY);
+        checkPlayer(bombX, bombY);
+        gc.drawImage(image, bombX, bombY);
     }
 
     // check xem co them duoc bom o day khong
