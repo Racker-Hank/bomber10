@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 import src.bomb.Bomb;
 import src.entities.enemy.EnemyManager;
+import src.game.LEVEL;
 import src.gui.game.GamePane;
 import src.gui.game.KeyHandler;
 
@@ -199,7 +200,12 @@ public class Bomber extends Entity {
                     break;
                 case "portal":
                     if (gp.enemy.size() <= 0) {
-                        gp.gameState = gp.GAME_WIN_STATE;
+                        // gp.levelIndex++;
+                        if (gp.levelIndex >= LEVEL.values().length) {
+                            gp.gameState = gp.GAME_WIN_STATE;
+                        } else {
+                            gp.gameState = gp.NEW_GAME_STATE;
+                        }
                     }
                     break;
             }

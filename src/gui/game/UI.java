@@ -66,6 +66,7 @@ public class UI {
     // * game info label
     public void createGameInfoLabels() {
         createScoreLabel();
+        createTimeLabel();
         createLevelLabel();
     }
 
@@ -76,8 +77,15 @@ public class UI {
         gp.gamePane.getChildren().add(scoreLabel);
     }
 
+    private void createTimeLabel() {
+        timeLabel = new GameLabel("Time: 200");
+        timeLabel.setLayoutX(300);
+        timeLabel.setLayoutY(30);
+        gp.gamePane.getChildren().add(timeLabel);
+    }
+
     private void createLevelLabel() {
-        levelLabel = new GameLabel("LEVEL 1");
+        levelLabel = new GameLabel("LEVEL " + gp.Level.getLevel());
 
         String LEVEL_LABEL_STYLE = "-fx-font-size: 30;-fx-text-fill: #fff;-fx-font-family: 'Press Start 2P';-fx-background-color: transparent;-fx-background-radius: 15;-fx-padding: 13 20 7 20";
 

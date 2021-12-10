@@ -13,6 +13,8 @@ import src.bomb.Bomb;
 import src.entities.Bomber;
 import src.entities.Entity;
 import src.entities.enemy.EnemyManager;
+import src.game.LEVEL;
+import src.graphics.SpriteSheet;
 // import src.graphics.Sprite;
 import src.object.ObjectManager;
 import src.tile.Brick;
@@ -35,15 +37,27 @@ public class GamePane {
     public int screenHeight = 600;
 
     // * WORLD SETTINGS
-    public final int maxWorldCol = 31;
-    public final int maxWorldRow = 13;
-    public final int worldWidth = tileSize * maxWorldCol; // 992
-    public final int worldHeight = tileSize * maxWorldRow; // 416
+    public int maxWorldCol = 31;
+    public int maxWorldRow = 13;
+    // public int worldWidth = tileSize * maxWorldCol; // 992
+    // public int worldHeight = tileSize * maxWorldRow; // 416
+
+    public int getWorldWidth() {
+        return tileSize * maxWorldCol;
+    }
+
+    public int getWorldHeight() {
+        return tileSize * maxWorldRow;
+    }
 
     // canvas
     public GraphicsContext gc;
     public Canvas canvas;
-    public String levelMapPath = "./res/levels/level1Map.txt";
+    public String levelMapPath;
+    public int levelIndex = 0;
+    public LEVEL Level;
+    public double levelTimeLimit = 200;
+    public double levelTimePassed = 0;
 
     // ui
     public UI ui;
@@ -51,7 +65,7 @@ public class GamePane {
     // key handler
     public KeyHandler keyHandler;
 
-    public GetImage getImage = new GetImage();
+    public GetImage getImage;
 
     // map
     public TileManager tileManager;
@@ -93,8 +107,15 @@ public class GamePane {
         // gamePane.setStyle(PANE_STYLE);
         gamePane.getStyleClass().add("game-background");
 
+        // create level
+        Level = LEVEL.values()[levelIndex];
+        levelMapPath = Level.getMapPath();
+        SpriteSheet.tiles = new SpriteSheet(Level.getSpriteSheetPath(), 256);
+        maxWorldCol = Level.getMaxWorldCol();
+        maxWorldRow = Level.getMaxWorldRow();
+
         // create canvas
-        canvas = new Canvas(worldWidth, worldHeight);
+        canvas = new Canvas(getWorldWidth(), getWorldHeight());
         AnchorPane.setTopAnchor(canvas, 100.0);
         AnchorPane.setLeftAnchor(canvas, 40.0);
         gc = canvas.getGraphicsContext2D();
@@ -107,6 +128,7 @@ public class GamePane {
     }
 
     public void initGame() {
+        getImage = new GetImage();
         ui = new UI(this);
         keyHandler = new KeyHandler(this);
         player = new Bomber(this, keyHandler);
@@ -124,7 +146,7 @@ public class GamePane {
         // set objects (power ups)
         assetSetter.setObject();
         // set bricks
-        tileManager.addBrick();
+        tileManager.setBrick();
         // set enemies
         assetSetter.setEnemy();
 
@@ -136,44 +158,83 @@ public class GamePane {
 
     public void createGameLoop() {
         gameThread = new AnimationTimer() {
+            private long startTime;
+
+            @Override
+            public void start() {
+                startTime = System.nanoTime();
+                super.start();
+            }
+
             @Override
             public void handle(long now) {
                 render();
-                update();
+                update(startTime, now);
+                // System.out.println((now - startTime) / 1000000000);
             }
         };
         gameThread.start();
     }
 
-    public void update() {
+    public void update(long startTime, long now) {
         // System.out.println(gameState);
         if (gameState == PLAY_STATE) {
-            // object
-            objManager.update();
-
-            // player
-            player.update();
-
-            // enemy
-            for (int i = 0; i < enemy.size(); i++) {
-                if (enemy.get(i) != null) {
-                    enemy.get(i).update();
-                }
-            }
-            // bomb
-            for (int i = 0; i < bombs.size(); i++) {
-                if (bombs.get(i) != null) {
-                    bombs.get(i).update();
-                }
+            gamePlayState();
+            // levelTimePassed += (double) 1 / 60;
+            levelTimePassed = (double) ((now - startTime) / 1000000000);
+            double levelTimeLeft = levelTimeLimit - levelTimePassed;
+            if (levelTimeLeft >= 0) {
+                ui.timeLabel.setText("Time: " + String.format("%.0f", levelTimeLeft));
+            } else {
+                gameState = GAME_OVER_STATE;
             }
         }
         if (gameState == PAUSE_STATE) {
-            // nothing
+            gamePauseState();
+            double levelTimeLeft = levelTimeLimit - levelTimePassed;
+            ui.timeLabel.setText("Time: " + String.format("%.0f", levelTimeLeft));
         }
-        // if (gameState == NEW_GAME_STATE) {
-        // // setupGame(primaryStage);
-        // System.out.println("new game");
-        // }
+        if (gameState == NEW_GAME_STATE) {
+            newGameState();
+        }
+        if (gameState == GAME_WIN_STATE) {
+            // gameWinState();
+        }
+        if (gameState == GAME_OVER_STATE) {
+            // gameOverState();
+        }
+    }
+
+    public void gamePlayState() {
+        // object
+        objManager.update();
+
+        // player
+        player.update();
+
+        // enemy
+        for (int i = 0; i < enemy.size(); i++) {
+            if (enemy.get(i) != null) {
+                enemy.get(i).update();
+            }
+        }
+
+        // bomb
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i) != null) {
+                bombs.get(i).update();
+            }
+        }
+    }
+
+    public void gamePauseState() {
+    }
+
+    public void newGameState() {
+        Stage primaryStage = (Stage) gamePane.getScene().getWindow();
+        GamePane gamePane = new GamePane();
+        primaryStage.setScene(gamePane.gameScene);
+        System.out.println("new game");
     }
 
     public void render() {

@@ -71,7 +71,7 @@ public class TileManager {
         }
     }
 
-    public void addBrick() {
+    public void setBrick() {
         for (int col = 0; col < gp.maxWorldCol; col++) {
             for (int row = 0; row < gp.maxWorldRow; row++) {
                 if (liveMapTile[col][row] == '*') {

@@ -209,15 +209,31 @@ public class Bomb {
         int bombTopY = (int) (bombY + solidArea.getY());
         int bombBottomY = (int) (bombY + solidArea.getY() + solidArea.getHeight());
 
+        // check dang dung trong hay khong
         if (((entityLeftX > bombLeftX && entityLeftX < bombRightX)
                 || (entityRightX > bombLeftX && entityRightX < bombRightX))
                 && ((entityTopY > bombTopY && entityTopY < bombBottomY)
                         || (entityBottomY > bombTopY && entityBottomY < bombBottomY))) {
+            // check bom da no chua
             if (spriteCounter < toExplodeTime) {
                 if (setBomb && entity instanceof Bomber) {
                     entity.collisionOn = false;
                 } else {
-                    entity.collisionOn = true;
+                    // entity.collisionOn = true;
+                    switch (entity.direction) {
+                        case "up":
+                            entity.direction = "down";
+                            break;
+                        case "down":
+                            entity.direction = "up";
+                            break;
+                        case "left":
+                            entity.direction = "right";
+                            break;
+                        case "right":
+                            entity.direction = "left";
+                            break;
+                    }
                 }
             } else {
                 entity.isExploded = true;
@@ -238,7 +254,6 @@ public class Bomb {
                     entity.solidArea.setY(entity.solidArea.getY() - entity.speed);
                     if (entity.solidArea.getBoundsInParent()
                             .intersects(solidArea.getBoundsInParent())) {
-
                         entity.collisionOn = true;
                     }
                     break;
