@@ -51,6 +51,14 @@
 	-fx-text-fill: #6fe4f9;
 }
 
+.game-btn:hover {
+	-fx-background-color: #66addf;
+}
+
+.game-btn:hover .game-btn-text {
+	-fx-text-fill: #fff;
+}
+
 #volume-btn {
 	-fx-padding: 10 20 10 20;
 	-fx-font-family: 'Press Start 2P';

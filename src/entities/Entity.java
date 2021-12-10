@@ -1,6 +1,8 @@
 package src.entities;
 
+import src.entities.enemy.Balloom;
 import src.entities.enemy.EnemyManager;
+import src.entities.enemy.Oneal;
 import src.gui.game.GamePane;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -90,9 +92,12 @@ public class Entity {
             explodeCounter++;
             if (explodeCounter > 0 && explodeCounter <= 15) {
                 if (explodeCounter == 1) {
-                    if (this instanceof EnemyManager) {
+                    if (this instanceof Balloom) {
+                        gp.player.score += 100;
+                        gp.ui.scoreLabel.setText("Score: " + gp.player.score);
+                    } else if (this instanceof Oneal) {
                         gp.player.score += 200;
-                        System.out.println(gp.player.score);
+                        gp.ui.scoreLabel.setText("Score: " + gp.player.score);
                     }
                 }
                 image = dead1;

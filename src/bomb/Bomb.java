@@ -209,10 +209,10 @@ public class Bomb {
         int bombTopY = (int) (bombY + solidArea.getY());
         int bombBottomY = (int) (bombY + solidArea.getY() + solidArea.getHeight());
 
-        if ((((entityLeftX > bombLeftX && entityLeftX < bombRightX)
+        if (((entityLeftX > bombLeftX && entityLeftX < bombRightX)
                 || (entityRightX > bombLeftX && entityRightX < bombRightX))
                 && ((entityTopY > bombTopY && entityTopY < bombBottomY)
-                        || (entityBottomY > bombTopY && entityBottomY < bombBottomY)))) {
+                        || (entityBottomY > bombTopY && entityBottomY < bombBottomY))) {
             if (spriteCounter < toExplodeTime) {
                 if (setBomb && entity instanceof Bomber) {
                     entity.collisionOn = false;

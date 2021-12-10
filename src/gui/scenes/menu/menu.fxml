@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="1072.0" styleClass="body" stylesheets="@../scenes.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.gui.scenes.menu.menuController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1072.0" styleClass="body" stylesheets="@../scenes.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.gui.scenes.menu.menuController">
    <children>
       <ImageView layoutX="159.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <viewport>
             <Rectangle2D />
          </viewport>
          <image>
-            <Image url="@../../../../res/img/Frame%203.png" />
+            <Image url="@../../../../res/img/Frame%204.png" />
          </image>
       </ImageView>
       <Button fx:id="startGame" contentDisplay="CENTER" layoutX="60.0" layoutY="50.0" mnemonicParsing="false" onAction="#startGame" styleClass="menu-btn" textFill="#a65757" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="130.0">

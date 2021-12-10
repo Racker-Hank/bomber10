@@ -32,7 +32,7 @@ public class GamePane {
     public int maxScreenCol = 31;
     public int maxScreenRow = 13;
     public int screenWidth = 1072;
-    public int screenHeight = 540;
+    public int screenHeight = 600;
 
     // * WORLD SETTINGS
     public final int maxWorldCol = 31;
@@ -44,6 +44,9 @@ public class GamePane {
     public GraphicsContext gc;
     public Canvas canvas;
     public String levelMapPath = "./res/levels/level1Map.txt";
+
+    // ui
+    public UI ui;
 
     // key handler
     public KeyHandler keyHandler;
@@ -104,6 +107,7 @@ public class GamePane {
     }
 
     public void initGame() {
+        ui = new UI(this);
         keyHandler = new KeyHandler(this);
         player = new Bomber(this, keyHandler);
         tileManager = new TileManager(this);

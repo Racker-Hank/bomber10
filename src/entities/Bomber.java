@@ -80,8 +80,6 @@ public class Bomber extends Entity {
         // player.loseLive();
         // }
 
-        // System.out.println(isExploded);
-        // System.out.println(lives);
         if (isDead) {
             // gp.gameState = gp.GAME_OVER_STATE;
         } else if (isExploded) {
@@ -200,7 +198,9 @@ public class Bomber extends Entity {
                     gp.obj.remove(i);
                     break;
                 case "portal":
-                    gp.gameState = gp.GAME_WIN_STATE;
+                    if (gp.enemy.size() <= 0) {
+                        gp.gameState = gp.GAME_WIN_STATE;
+                    }
                     break;
             }
             gp.tileManager.liveMapTile[col][row] = ' ';
