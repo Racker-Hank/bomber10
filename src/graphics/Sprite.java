@@ -18,7 +18,7 @@ public class Sprite {
 	public int[] _pixels;
 	protected int _realWidth;
 	protected int _realHeight;
-	private SpriteSheet _sheet;
+	public SpriteSheet _sheet;
 
 	/*
 	 * |--------------------------------------------------------------------------

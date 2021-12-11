@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import src.bomb.Bomb;
 import src.entities.Bomber;
 import src.entities.Entity;
 import src.entities.enemy.EnemyManager;
 import src.game.LEVEL;
+import src.graphics.Sprite;
 import src.graphics.SpriteSheet;
 // import src.graphics.Sprite;
 import src.object.ObjectManager;
@@ -50,6 +53,7 @@ public class GamePane {
         return tileSize * maxWorldRow;
     }
 
+    HBox canvasContainer;
     // canvas
     public GraphicsContext gc;
     public Canvas canvas;
@@ -100,12 +104,20 @@ public class GamePane {
         initGamePane();
         initGame();
         setupGame();
+        // game loop
+        createGameLoop();
     }
 
     public void initGamePane() {
         gamePane = new AnchorPane();
         // gamePane.setStyle(PANE_STYLE);
         gamePane.getStyleClass().add("game-background");
+
+        canvasContainer = new HBox();
+        canvasContainer.setAlignment(Pos.CENTER);
+        AnchorPane.setTopAnchor(canvasContainer, 100.0);
+        AnchorPane.setLeftAnchor(canvasContainer, 40.0);
+        AnchorPane.setRightAnchor(canvasContainer, 40.0);
 
         // create level
         Level = LEVEL.values()[levelIndex];
@@ -116,10 +128,15 @@ public class GamePane {
 
         // create canvas
         canvas = new Canvas(getWorldWidth(), getWorldHeight());
-        AnchorPane.setTopAnchor(canvas, 100.0);
-        AnchorPane.setLeftAnchor(canvas, 40.0);
+        // AnchorPane.setTopAnchor(canvas, 100.0);
+        // AnchorPane.setLeftAnchor(canvas, 40.0);
         gc = canvas.getGraphicsContext2D();
-        gamePane.getChildren().add(canvas);
+
+        canvasContainer.getChildren().add(canvas);
+
+        // gamePane.getChildren().add(canvas);
+        gamePane.getChildren().add(canvasContainer);
+
         gameScene = new Scene(gamePane, screenWidth, screenHeight);
         gameScene.getStylesheets().add("/src/gui/scenes/scenes.css");
         gameStage = new Stage();
@@ -129,13 +146,13 @@ public class GamePane {
 
     public void initGame() {
         getImage = new GetImage();
-        ui = new UI(this);
         keyHandler = new KeyHandler(this);
         player = new Bomber(this, keyHandler);
         tileManager = new TileManager(this);
         objManager = new ObjectManager(this);
         assetSetter = new AssetSetter(this);
         collisionChecker = new CollisionChecker(this);
+        ui = new UI(this);
     }
 
     public void setupGame() {
@@ -150,16 +167,13 @@ public class GamePane {
         // set enemies
         assetSetter.setEnemy();
 
-        // game loop
-        createGameLoop();
-
         // gameStage.show();
     }
 
+    public long startTime;
+
     public void createGameLoop() {
         gameThread = new AnimationTimer() {
-            private long startTime;
-
             @Override
             public void start() {
                 startTime = System.nanoTime();
@@ -170,7 +184,6 @@ public class GamePane {
             public void handle(long now) {
                 render();
                 update(startTime, now);
-                // System.out.println((now - startTime) / 1000000000);
             }
         };
         gameThread.start();
@@ -231,10 +244,38 @@ public class GamePane {
     }
 
     public void newGameState() {
-        Stage primaryStage = (Stage) gamePane.getScene().getWindow();
-        GamePane gamePane = new GamePane();
-        primaryStage.setScene(gamePane.gameScene);
-        System.out.println("new game");
+        if (levelIndex == Level.getLevel()) {
+            Level = LEVEL.values()[levelIndex];
+
+            levelMapPath = Level.getMapPath();
+            SpriteSheet.tiles = new SpriteSheet(Level.getSpriteSheetPath(), 256);
+            // System.out.println(Sprite.balloom_dead._sheet._path);
+            maxWorldCol = Level.getMaxWorldCol();
+            maxWorldRow = Level.getMaxWorldRow();
+
+            startTime = System.nanoTime();
+            canvas.setWidth(getWorldWidth());
+            canvas.setHeight(getWorldHeight());
+            canvasContainer.getChildren().clear();
+            canvasContainer.getChildren().add(canvas);
+
+            // getImage = new GetImage();
+            // System.out.println(Sprite.balloom_dead._sheet._path);
+
+            // player.getImage();
+            // for (int i = 0; i < enemy.size(); i++) {
+            // enemy.get(i).getImage();
+            // }
+            // tileManager.getImage();
+
+            ui.levelLabel.setText("LEVEL " + Level.getLevel());
+
+            tileManager.levelMapPath = levelMapPath;
+            tileManager.loadMap();
+            setupGame();
+        }
+        player.setDefaultValues();
+        gameState = PLAY_STATE;
     }
 
     public void render() {

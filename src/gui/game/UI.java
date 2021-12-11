@@ -13,6 +13,7 @@ public class UI {
     public GameSubScene menuSettings;
     public GameSubScene gameLevel;
     public GameSubScene gameOver;
+    public GameLabel livesLabel;
     public GameLabel scoreLabel;
     public GameLabel timeLabel;
     public GameLabel levelLabel;
@@ -65,21 +66,30 @@ public class UI {
 
     // * game info label
     public void createGameInfoLabels() {
+        createLivesLabel();
         createScoreLabel();
         createTimeLabel();
         createLevelLabel();
     }
 
+    private void createLivesLabel() {
+        livesLabel = new GameLabel("Lives: " + gp.player.lives);
+        livesLabel.setLayoutX(40);
+        livesLabel.setLayoutY(30);
+        gp.gamePane.getChildren().add(livesLabel);
+    }
+
     private void createScoreLabel() {
-        scoreLabel = new GameLabel("Score: 0");
-        scoreLabel.setLayoutX(40);
+        scoreLabel = new GameLabel("Score: " + gp.player.score);
+        scoreLabel.setLayoutX(300);
         scoreLabel.setLayoutY(30);
         gp.gamePane.getChildren().add(scoreLabel);
     }
 
     private void createTimeLabel() {
-        timeLabel = new GameLabel("Time: 200");
-        timeLabel.setLayoutX(300);
+        double levelTimeLeft = gp.levelTimeLimit - gp.levelTimePassed;
+        timeLabel = new GameLabel("Time: " + String.format("%.0f", levelTimeLeft));
+        timeLabel.setLayoutX(700);
         timeLabel.setLayoutY(30);
         gp.gamePane.getChildren().add(timeLabel);
     }

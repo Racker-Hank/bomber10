@@ -13,7 +13,7 @@ public class Bomber extends Entity {
     KeyHandler keyHandler;
 
     public int bombs = 1;
-    public int lives = 1;
+    public int lives = 3;
     public int score = 0;
 
     int standCounter = 0;
@@ -31,6 +31,8 @@ public class Bomber extends Entity {
         // this.gp = gamePane;
         this.keyHandler = keyHandler;
 
+        speed = 3;
+
         solidArea = new Rectangle(0, 13, 16, 16);
 
         solidAreaDefaultX = (int) solidArea.getX();
@@ -43,7 +45,7 @@ public class Bomber extends Entity {
     public void setDefaultValues() {
         x = gp.tileSize;
         y = gp.tileSize;
-        speed = 3;
+        // speed = 3;
         direction = "down";
     }
 
@@ -68,7 +70,6 @@ public class Bomber extends Entity {
     @Override
     public void update() {
         isDead = lives <= 0;
-
         // if (!player.isExploded && !player.isDead) {
         // player.update();
         // } else if (player.isDead) {
@@ -187,7 +188,7 @@ public class Bomber extends Entity {
             int row = gp.obj.get(i).y / gp.tileSize;
             switch (objName) {
                 case "speed":
-                    speed = 5;
+                    speed++;
                     gp.obj.remove(i);
                     break;
                 case "flames":
@@ -200,7 +201,7 @@ public class Bomber extends Entity {
                     break;
                 case "portal":
                     if (gp.enemy.size() <= 0) {
-                        // gp.levelIndex++;
+                        gp.levelIndex++;
                         if (gp.levelIndex >= LEVEL.values().length) {
                             gp.gameState = gp.GAME_WIN_STATE;
                         } else {
@@ -291,6 +292,7 @@ public class Bomber extends Entity {
             if (explodeCounter > 0 && explodeCounter <= 15) {
                 if (explodeCounter == 1) {
                     lives--;
+                    gp.ui.livesLabel.setText("Lives: " + lives);
                 }
                 image = dead1;
             } else if (explodeCounter > 15 && explodeCounter <= 30) {
@@ -304,6 +306,7 @@ public class Bomber extends Entity {
                 } else {
                     gp.gameState = gp.NEW_GAME_STATE;
                 }
+                isExploded = false;
             }
         }
         gc.drawImage(image, x, y);

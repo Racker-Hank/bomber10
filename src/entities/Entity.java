@@ -122,4 +122,7 @@ public class Entity {
     public void update() {
     }
 
+    public void getImage() {
+    }
+
 }

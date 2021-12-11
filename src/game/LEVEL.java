@@ -2,7 +2,8 @@ package src.game;
 
 public enum LEVEL {
 
-    LEVEL_1(1, "./res/levels/level1Map.txt", "/src/graphics/classic11.png", 31, 13);
+    LEVEL_1(1, "./res/levels/level1Map.txt", "/src/graphics/classic11.png", 31, 13),
+    LEVEL_2(2, "./res/levels/level2Map.txt", "/src/graphics/classic.png", 31, 13);
 
     private int level;
     private String mapPath;
