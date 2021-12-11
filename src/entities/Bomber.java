@@ -107,6 +107,7 @@ public class Bomber extends Entity {
                         if (bomb.checkBomb(bomb)) {
                             bomb.setBomb = true;
                             gp.bombs.add(bomb);
+                            gp.playSE(2);
                             bombs--;
                         }
                     }

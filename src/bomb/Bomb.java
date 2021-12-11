@@ -9,6 +9,7 @@ import src.entities.Bomber;
 import src.entities.Entity;
 import src.entities.enemy.EnemyManager;
 import src.gui.game.GamePane;
+import src.gui.game.Sound;
 
 public class Bomb {
     public GamePane gp;
@@ -38,6 +39,8 @@ public class Bomb {
     public Image flame_right_hor, flame_right_hor1, flame_right_hor2;
     public Image flame_top_ver, flame_top_ver1, flame_top_ver2;
     public Image flame_bot_ver, flame_bot_ver1, flame_bot_ver2;
+
+    Sound bombSE = new Sound();
 
     public Bomb(GamePane gp) {
         this.gp = gp;
@@ -82,6 +85,15 @@ public class Bomb {
 
     public void update() {
         spriteCounter++;
+        if (spriteCounter == 50) {
+            bombSE.setSound(3, 0.7);
+            bombSE.play();
+            bombSE.loop();
+        } else if (spriteCounter == toExplodeTime) {
+            bombSE.stop();
+            bombSE.setSound(4, 0.8);
+            bombSE.play();
+        }
         if (spriteCounter > 0 && spriteCounter < toExplodeTime) {
             int loop = 3;
             for (int i = 0; i < loop; i++) {

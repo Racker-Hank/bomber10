@@ -68,6 +68,10 @@ public class GamePane {
     // ui
     public UI ui;
 
+    // sound
+    public Sound music = new Sound();
+    public Sound se = new Sound();
+
     // key handler
     public KeyHandler keyHandler;
 
@@ -169,6 +173,9 @@ public class GamePane {
         tileManager.setBrick();
         // set enemies
         assetSetter.setEnemy();
+
+        playMusic(0);
+        playSE(1);
 
         // gameStage.show();
     }
@@ -327,6 +334,21 @@ public class GamePane {
 
         // draw player
         player.render(gc);
+    }
+
+    public void playMusic(int i) {
+        music.setSound(i, 0.5);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSE(int i) {
+        se.setSound(i, 0.7);
+        se.play();
     }
 
 }
