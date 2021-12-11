@@ -7,7 +7,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class Sound {
 
-    String[] soundPaths = new String[10];
+    String[] soundPaths = new String[20];
     Media sound;
     MediaPlayer mediaPlayer;
 
@@ -17,8 +17,9 @@ public class Sound {
         soundPaths[2] = "./res/sound/bomb_set.mp3";
         soundPaths[3] = "./res/sound/bomb_timer.wav";
         soundPaths[4] = "./res/sound/bomb_explode.wav";
-        // soundPaths[0] = "./res/sound/bomb_explode.wav";
-        // soundPaths[0] = "./res/sound/bomb_explode.wav";
+        soundPaths[5] = "./res/sound/player_explode.wav";
+        soundPaths[6] = "./res/sound/power_up.wav";
+        soundPaths[7] = "./res/sound/enemy_explode.wav";
     }
 
     public void setSound(int soundNumber) {
@@ -37,6 +38,10 @@ public class Sound {
 
     public void loop() {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+    }
+
+    public void pause() {
+        mediaPlayer.pause();
     }
 
     public void stop() {

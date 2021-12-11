@@ -99,6 +99,7 @@ public class Entity {
                         gp.player.score += 200;
                         gp.ui.scoreLabel.setText("Score: " + gp.player.score);
                     }
+                    gp.playSE(7);
                 }
                 image = dead1;
             } else if (explodeCounter > 15 && explodeCounter <= 30) {

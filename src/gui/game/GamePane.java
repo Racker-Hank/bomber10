@@ -248,9 +248,17 @@ public class GamePane {
                 bombs.get(i).update();
             }
         }
+
+        music.play();
+        se.play();
+        // for (int i = 0; i < bombs.size(); i++) {
+        // bombs.get(i).bombSE.play();
+        // }
     }
 
     public void gamePauseState() {
+        music.pause();
+        se.pause();
     }
 
     public void newGameState() {

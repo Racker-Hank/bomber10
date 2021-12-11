@@ -40,7 +40,7 @@ public class Bomb {
     public Image flame_top_ver, flame_top_ver1, flame_top_ver2;
     public Image flame_bot_ver, flame_bot_ver1, flame_bot_ver2;
 
-    Sound bombSE = new Sound();
+    public Sound bombSE = new Sound();
 
     public Bomb(GamePane gp) {
         this.gp = gp;
@@ -93,6 +93,8 @@ public class Bomb {
             bombSE.stop();
             bombSE.setSound(4, 0.8);
             bombSE.play();
+        } else if (spriteCounter == explodeTime) {
+            bombSE.stop();
         }
         if (spriteCounter > 0 && spriteCounter < toExplodeTime) {
             int loop = 3;

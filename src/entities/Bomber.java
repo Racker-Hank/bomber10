@@ -181,15 +181,18 @@ public class Bomber extends Entity {
             switch (objName) {
                 case "speed":
                     speed++;
-                    gp.obj.remove(i);
+                    // gp.obj.remove(i);
+                    powerUp(i, col, row);
                     break;
                 case "flames":
                     Bomb.bomb_radius++;
-                    gp.obj.remove(i);
+                    // gp.obj.remove(i);
+                    powerUp(i, col, row);
                     break;
                 case "bombs":
                     bombs++;
-                    gp.obj.remove(i);
+                    // gp.obj.remove(i);
+                    powerUp(i, col, row);
                     break;
                 case "portal":
                     if (gp.enemy.size() <= 0) {
@@ -202,8 +205,14 @@ public class Bomber extends Entity {
                     }
                     break;
             }
-            gp.tileManager.liveMapTile[col][row] = ' ';
+            // gp.tileManager.liveMapTile[col][row] = ' ';
         }
+    }
+
+    public void powerUp(int i, int col, int row) {
+        gp.obj.remove(i);
+        gp.tileManager.liveMapTile[col][row] = ' ';
+        gp.playSE(6);
     }
 
     public void hitEnemy(Entity entity) {
@@ -279,6 +288,7 @@ public class Bomber extends Entity {
                 if (explodeCounter == 1) {
                     lives--;
                     gp.ui.livesLabel.setText("Lives: " + lives);
+                    gp.playSE(5);
                 }
                 image = dead1;
             } else if (explodeCounter > 15 && explodeCounter <= 30) {
