@@ -27,12 +27,6 @@ public class Bomberman extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        // gamePlay();
         launch(args);
     }
-
-    // public static void gamePlay() {
-    // launch();
-    // }
-
 }

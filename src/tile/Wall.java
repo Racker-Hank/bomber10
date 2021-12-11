@@ -12,9 +12,4 @@ public class Wall extends Tile {
         super(x, y, image);
         collision = true;
     }
-
-    // @Override
-    // public void update() {
-
-    // }
 }

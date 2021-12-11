@@ -10,9 +10,4 @@ public class Grass extends Tile {
 
     public Grass() {
     }
-
-    // @Override
-    // public void update() {
-
-    // }
 }

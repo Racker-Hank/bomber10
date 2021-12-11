@@ -9,7 +9,6 @@ import src.gui.game.GamePane;
 import src.gui.game.KeyHandler;
 
 public class Bomber extends Entity {
-    // GamePane gp;
     KeyHandler keyHandler;
 
     public int bombs = 1;
@@ -18,17 +17,8 @@ public class Bomber extends Entity {
 
     int standCounter = 0;
 
-    // public Bomber(int x, int y, Image image) {
-    // super(x, y, image);
-    // }
-
-    // public Bomber(GamePane gp) {
-    // super(gp);
-    // }
-
     public Bomber(GamePane gp, KeyHandler keyHandler) {
         super(gp);
-        // this.gp = gamePane;
         this.keyHandler = keyHandler;
 
         speed = 3;
@@ -69,7 +59,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        isDead = lives <= 0;
+        isDead = (lives <= 0);
         // if (!player.isExploded && !player.isDead) {
         // player.update();
         // } else if (player.isDead) {
@@ -84,8 +74,9 @@ public class Bomber extends Entity {
 
         if (isDead) {
             // gp.gameState = gp.GAME_OVER_STATE;
+            System.out.println("sfdasd");
         } else if (isExploded) {
-            // loseLive();
+            System.out.println("sadf");
         } else {
             if (keyHandler.up || keyHandler.down || keyHandler.left || keyHandler.right || keyHandler.space) {
                 if (keyHandler.up) {
@@ -229,12 +220,6 @@ public class Bomber extends Entity {
         }
     }
 
-    // public void loseLive() {
-    // lives--;
-    // System.out.println(lives);
-    // isExploded = true;
-    // }
-
     @Override
     public void render(GraphicsContext gc) {
         // Image image = null;
@@ -305,6 +290,7 @@ public class Bomber extends Entity {
                     gp.gameState = gp.GAME_OVER_STATE;
                 } else {
                     gp.gameState = gp.NEW_GAME_STATE;
+                    System.out.println("asdfas");
                 }
                 isExploded = false;
             }

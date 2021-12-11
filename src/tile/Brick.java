@@ -45,17 +45,6 @@ public class Brick extends Tile {
                 int row = y / gp.tileSize;
                 char live = gp.tileManager.liveMapTile[col][row];
                 char input = gp.tileManager.inputMapTile[col][row];
-                // if (obj == '*') {
-                // gp.tileManager.liveMapTile[col][row] = ' ';
-                // } else if (obj == 'x') {
-                // gp.tileManager.liveMapTile[col][row] = 'X';
-                // } else if (obj == 's') {
-                // gp.tileManager.liveMapTile[col][row] = 'S';
-                // } else if (obj == 'f') {
-                // gp.tileManager.liveMapTile[col][row] = 'F';
-                // } else if (obj == 'b') {
-                // gp.tileManager.liveMapTile[col][row] = 'B';
-                // }
                 if (input == '*') {
                     gp.tileManager.liveMapTile[col][row] = ' ';
                 } else {
@@ -67,9 +56,4 @@ public class Brick extends Tile {
         }
         gc.drawImage(image, x, y);
     }
-
-    // @Override
-    // public void update() {
-
-    // }
 }

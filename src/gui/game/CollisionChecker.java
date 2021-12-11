@@ -36,32 +36,19 @@ public class CollisionChecker {
 
                 if (ch1 == '#') {
                     tileNum1 = 1;
-                    // } else if (ch1 == '*') {
-                    // tileNum1 = 1;
                 } else {
                     tileNum1 = 0;
                 }
 
                 if (ch2 == '#') {
                     tileNum2 = 1;
-                    // } else if (ch2 == '*') {
-                    // tileNum2 = 1;
                 } else {
                     tileNum2 = 0;
                 }
 
                 if (ch1 == '*' || ch2 == '*') {
                     entity.collisionOn = true;
-                    // return;
                 }
-
-                // for (int i = 0; i < ObjectManager.objChar.size(); i++) {
-                // char check = ObjectManager.objChar.get(i);
-                // if (ch1 == check || ch2 == check) {
-                // entity.collisionOn = true;
-                // // return;
-                // }
-                // }
 
                 if (gp.tileManager.tile[tileNum1].collision
                         || gp.tileManager.tile[tileNum2].collision) {

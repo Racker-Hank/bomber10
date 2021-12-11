@@ -170,29 +170,19 @@ public class Bomb {
     }
 
     public boolean checkTile(int col, int row) {
-        // if (col < 0 || col > gp.maxWorldCol || row < 0 || row > gp.maxWorldRow) {
-        // return false;
-        // }
-        // if (gp.tileManager.liveMapTile[col][row] == '#') {
-        // return false;
-        // }
         col = col / gp.tileSize;
         row = row / gp.tileSize;
         if (col > 0 && col < gp.maxWorldCol && row > 0 & row < gp.maxWorldRow) {
             char c = gp.tileManager.liveMapTile[col][row];
-            // if (gp.tileManager.liveMapTile[col / gp.tileSize][row / gp.tileSize] == ' ')
-            // {
             if (c == ' ' || c == 'p' || c == '1' || c == '2') {
                 return true;
             }
             for (int i = 0; i < gp.bricks.size(); i++) {
                 if (col == gp.bricks.get(i).x / gp.tileSize && row == gp.bricks.get(i).y / gp.tileSize) {
-                    // if (col == gp.bricks.get(i).x && row == gp.bricks.get(i).y) {
                     gp.bricks.get(i).isExploded = true;
                 }
             }
         }
-        // return true;
         return false;
     }
 

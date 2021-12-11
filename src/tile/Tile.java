@@ -33,8 +33,4 @@ public class Tile {
         this.y = y;
         this.image = image;
     }
-
-    // public void update() {
-    // }
-
 }

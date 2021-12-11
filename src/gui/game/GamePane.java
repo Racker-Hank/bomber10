@@ -8,8 +8,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import src.bomb.Bomb;
 import src.entities.Bomber;
@@ -18,7 +20,6 @@ import src.entities.enemy.EnemyManager;
 import src.game.LEVEL;
 import src.graphics.Sprite;
 import src.graphics.SpriteSheet;
-// import src.graphics.Sprite;
 import src.object.ObjectManager;
 import src.tile.Brick;
 import src.tile.TileManager;
@@ -62,6 +63,7 @@ public class GamePane {
     public LEVEL Level;
     public double levelTimeLimit = 200;
     public double levelTimePassed = 0;
+    public double levelTimePaused = 0;
 
     // ui
     public UI ui;
@@ -131,6 +133,7 @@ public class GamePane {
         // AnchorPane.setTopAnchor(canvas, 100.0);
         // AnchorPane.setLeftAnchor(canvas, 40.0);
         gc = canvas.getGraphicsContext2D();
+        canvas.setEffect(new DropShadow(15, Color.web("#6fe4f9")));
 
         canvasContainer.getChildren().add(canvas);
 
@@ -267,6 +270,11 @@ public class GamePane {
             // enemy.get(i).getImage();
             // }
             // tileManager.getImage();
+
+            bricks.clear();
+            enemy.clear();
+            bombs.clear();
+            obj.clear();
 
             ui.levelLabel.setText("LEVEL " + Level.getLevel());
 

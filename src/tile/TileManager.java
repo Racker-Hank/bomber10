@@ -88,10 +88,6 @@ public class TileManager {
                     gc.drawImage(tile[1].image, col * gp.tileSize, row * gp.tileSize);
                 } else if (liveMapTile[col][row] == '#') {
                     gc.drawImage(tile[2].image, col * gp.tileSize, row * gp.tileSize);
-                    // } else if (liveMapTile[col][row] == '*') {
-                    // gp.bricks.add(new Brick(col * gp.tileSize, row * gp.tileSize,
-                    // tile[3].image));
-                    // gc.drawImage(tile[3].image, col * gp.tileSize, row * gp.tileSize);
                 } else {
                     gc.drawImage(tile[0].image, col * gp.tileSize, row * gp.tileSize);
                 }

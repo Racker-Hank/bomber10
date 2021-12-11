@@ -1,6 +1,8 @@
 package src.gui.game;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import src.gui.model.GameButton;
 import src.gui.model.GameLabel;
 import src.gui.model.GameSubScene;
@@ -34,9 +36,9 @@ public class UI {
     private void createPauseButton() {
         // GameButton button = new GameButton("||");
 
-        String BUTTON_STYLE = "-fx-padding: 13 15 7 15;	-fx-font-family: 'Press Start 2P';	-fx-font-size: 20;	-fx-background-color: #0b2364;	-fx-background-radius: 15;-fx-text-fill: #6fe4f9;";
+        String BUTTON_STYLE = "-fx-padding: 13 15 7 15;	-fx-font-family: 'Press Start 2P';	-fx-font-size: 20;	-fx-background-color: #0b2364;	-fx-background-radius: 15;-fx-text-fill: #6fe4f9;-fx-border-color: #6fe4f9;-fx-border-radius: 15;";
 
-        String BUTTON_HOVER_STYLE = "-fx-padding: 13 15 7 15;	-fx-font-family: 'Press Start 2P';	-fx-font-size: 20;	-fx-background-color: #66addf;	-fx-background-radius: 15;-fx-text-fill: #fff;";
+        String BUTTON_HOVER_STYLE = "-fx-padding: 13 15 7 15;	-fx-font-family: 'Press Start 2P';	-fx-font-size: 20;	-fx-background-color: #66addf;	-fx-background-radius: 15;-fx-text-fill: #fff;-fx-border-color: #fff;-fx-border-radius: 15;";
 
         GameLabel button = new GameLabel("||");
         button.setStyle(BUTTON_STYLE);
@@ -102,6 +104,7 @@ public class UI {
         levelLabel.setStyle(LEVEL_LABEL_STYLE);
         levelLabel.setLayoutX(430);
         levelLabel.setLayoutY(530);
+        levelLabel.setEffect(new DropShadow(10, Color.web("#6fe4f9")));
         gp.gamePane.getChildren().add(levelLabel);
     }
 }
