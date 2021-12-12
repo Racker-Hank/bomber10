@@ -101,7 +101,8 @@ public class Entity {
                         gp.player.score += enemy.killScore;
                         gp.ui.scoreLabel.setText("Score: " + gp.player.score);
                         gp.playSE(7);
-                        gp.ui.showGameMessage("+" + killScore, x + gp.tileSize / 32, y + gp.tileSize / 16, Color.WHITE);
+                        gp.ui.showGameMessage("+" + killScore, x + gp.tileSize / 32, y + gp.tileSize / 16, Color.WHITE,
+                                false);
                     }
                 }
                 image = dead1;

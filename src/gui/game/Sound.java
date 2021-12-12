@@ -20,6 +20,8 @@ public class Sound {
         soundPaths[5] = "./res/sound/player_explode.wav";
         soundPaths[6] = "./res/sound/power_up.wav";
         soundPaths[7] = "./res/sound/enemy_explode.wav";
+        soundPaths[8] = "./res/sound/menu_bg_music.mp3";
+        soundPaths[9] = "./res/sound/victory.wav";
     }
 
     public void setSound(int soundNumber) {

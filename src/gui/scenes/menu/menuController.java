@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import src.gui.game.GamePane;
+import src.gui.game.Sound;
 import src.gui.game.UI;
 import src.gui.model.GameLabelButton;
 import src.gui.model.GameSubScene;
@@ -42,9 +43,15 @@ public class menuController implements Initializable {
 
     public UI ui;
 
+    public Sound music;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ui = new UI(root);
+        music = new Sound();
+        music.setSound(8, 0.6);
+        music.play();
+        music.loop();
         // load loading scene
         if (!loadingController.isSplashLoaded) {
             // loadSplashScene();
@@ -97,6 +104,8 @@ public class menuController implements Initializable {
         GamePane gamePane = new GamePane(primaryStage);
         // primaryStage.hide();
         // gamePane.setupGame();
+        gamePane.gameState = gamePane.NEW_GAME_STATE;
+        music.stop();
         primaryStage.setScene(gamePane.gameScene);
     }
 

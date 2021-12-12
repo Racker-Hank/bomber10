@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import src.game.LEVEL;
 import src.gui.model.GameButton;
 import src.gui.model.GameLabel;
 import src.gui.model.GameLabelButton;
@@ -33,6 +34,7 @@ public class UI {
     public GameLabel scoreLabel;
     public GameLabel timeLabel;
     public GameLabel levelLabel;
+    public GameLabelButton pauseButton;
 
     public Font gameFont = Font.font("Poppins", FontWeight.BOLD, 16);
     public List<Message> messages = new ArrayList<Message>();
@@ -58,17 +60,19 @@ public class UI {
         public Color color;
         public int messageCounter = 0;
         public boolean messageOn = false;
+        public boolean moveWithPlayers = false;
 
-        public Message(String message, int x, int y, Color color) {
+        public Message(String message, int x, int y, Color color, boolean moveWithPlayers) {
             this.message = message;
             this.x = x;
             this.y = y;
             this.color = color;
+            this.moveWithPlayers = moveWithPlayers;
         }
     }
 
-    public void showGameMessage(String message, int x, int y, Color color) {
-        Message newMessage = new Message(message, x, y, color);
+    public void showGameMessage(String message, int x, int y, Color color, boolean moveWithPlayers) {
+        Message newMessage = new Message(message, x, y, color, moveWithPlayers);
         newMessage.messageOn = true;
         messages.add(newMessage);
     }
@@ -79,7 +83,11 @@ public class UI {
             if (m.messageOn) {
                 gc.setFill(m.color);
                 gc.setFont(gameFont);
-                gc.fillText(m.message, gp.player.x - 30, gp.player.y - (5 + i * 16));
+                if (m.moveWithPlayers) {
+                    gc.fillText(m.message, gp.player.x - 30, gp.player.y - (5 + i * 16));
+                } else {
+                    gc.fillText(m.message, m.x, m.y);
+                }
             }
             m.messageCounter++;
             if (m.messageCounter > 90) {
@@ -96,25 +104,29 @@ public class UI {
     }
 
     public void createPauseButton() {
-        GameLabelButton button = new GameLabelButton("||");
-        // button.setStyle(BUTTON_STYLE);
-        button.setLayoutX(960);
-        button.setLayoutY(30);
-        button.setPrefWidth(72);
-        // button.getStyleClass().add("game-btn");
-        ap.getChildren().add(button);
-        // button.setOnAction(value);
+        pauseButton = new GameLabelButton("||");
+        // pauseButton.setStyle(BUTTON_STYLE);
+        pauseButton.setLayoutX(960);
+        pauseButton.setLayoutY(30);
+        pauseButton.setPrefWidth(72);
+        // pauseButton.getStyleClass().add("game-btn");
+        ap.getChildren().add(pauseButton);
+        // pauseButton.setOnAction(value);
 
-        button.setOnMouseClicked(e -> {
-            if (gp.gameState == gp.PLAY_STATE) {
-                gp.gameState = gp.PAUSE_STATE;
-                button.setText("▶");
-            } else if (gp.gameState == gp.PAUSE_STATE) {
-                gp.gameState = gp.PLAY_STATE;
-                button.setText("||");
-            }
-            showSubScene(gameSettings);
+        pauseButton.setOnMouseClicked(e -> {
+            pauseAction();
         });
+    }
+
+    public void pauseAction() {
+        if (gp.gameState == gp.PLAY_STATE) {
+            gp.gameState = gp.PAUSE_STATE;
+            pauseButton.setText("▶");
+        } else if (gp.gameState == gp.PAUSE_STATE) {
+            gp.gameState = gp.PLAY_STATE;
+            pauseButton.setText("||");
+        }
+        showSubScene(gameSettings);
     }
 
     // * SubScenes
@@ -142,8 +154,12 @@ public class UI {
         });
         exitToMenuButton.setOnMouseClicked(e -> {
             try {
+                // gp.levelIndex = 0;
+                // gp.Level = LEVEL.values()[gp.levelIndex];
+                gp.gameState = gp.GAME_OVER_STATE;
                 gp.gameThread.stop();
                 AnchorPane menu = FXMLLoader.load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
+                ap.getChildren().clear();
                 ap.getChildren().setAll(menu);
             } catch (IOException e1) {
                 e1.printStackTrace();

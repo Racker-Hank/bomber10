@@ -83,6 +83,15 @@ public class Bomb {
         flame_bot_ver2 = gp.getImage.flame_bot_ver2;
     }
 
+    public void reset() {
+        setBomb = true;
+        spriteCounter = 0;
+        spriteNum = 1;
+        bomb_radius = 1;
+        toExplodeTime = 120;
+        explodeTime = 150;
+    }
+
     public void update() {
         spriteCounter++;
         if (spriteCounter == 50) {

@@ -221,10 +221,10 @@ public class GamePane {
             newGameState();
         }
         if (gameState == GAME_WIN_STATE) {
-            // gameWinState();
+            gameWinState();
         }
         if (gameState == GAME_OVER_STATE) {
-            // gameOverState();
+            gameOverState();
         }
     }
 
@@ -270,6 +270,7 @@ public class GamePane {
 
     public void newGameState() {
         if (levelIndex == Level.getLevel()) {
+            music.stop();
             Level = LEVEL.values()[levelIndex];
 
             levelMapPath = Level.getMapPath();
@@ -306,6 +307,25 @@ public class GamePane {
         }
         player.setDefaultValues();
         gameState = PLAY_STATE;
+    }
+
+    public void gameWinState() {
+        levelIndex = 0;
+        Bomb.bomb_radius = 1;
+        // gameState = NEW_GAME_STATE;
+    }
+
+    public void gameOverState() {
+        levelIndex = 0;
+        Bomb.bomb_radius = 1;
+        music.stop();
+        se.stop();
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).spriteCounter >= 50 && bombs.get(i).spriteCounter < Bomb.explodeTime) {
+                bombs.get(i).bombSE.stop();
+            }
+        }
+        gameState = NEW_GAME_STATE;
     }
 
     public void render() {
@@ -359,10 +379,6 @@ public class GamePane {
         music.setSound(i, 0.5);
         music.play();
         music.loop();
-    }
-
-    public void stopMusic() {
-        music.stop();
     }
 
     public void playSE(int i) {

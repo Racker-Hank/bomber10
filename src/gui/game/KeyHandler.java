@@ -29,11 +29,12 @@ public class KeyHandler {
                 } else if (e.getCode() == KeyCode.SPACE) {
                     space = true;
                 } else if (e.getCode() == KeyCode.ESCAPE) {
-                    if (gp.gameState == gp.PLAY_STATE) {
-                        gp.gameState = gp.PAUSE_STATE;
-                    } else if (gp.gameState == gp.PAUSE_STATE) {
-                        gp.gameState = gp.PLAY_STATE;
-                    }
+                    // if (gp.gameState == gp.PLAY_STATE) {
+                    // gp.gameState = gp.PAUSE_STATE;
+                    // } else if (gp.gameState == gp.PAUSE_STATE) {
+                    // gp.gameState = gp.PLAY_STATE;
+                    // }
+                    gp.ui.pauseAction();
                 }
             }
         });

@@ -23,6 +23,9 @@ public class Bomber extends Entity {
         this.keyHandler = keyHandler;
 
         speed = 3;
+        bombs = 1;
+        lives = 3;
+        score = 0;
 
         solidArea = new Rectangle(0, 13, 16, 16);
 
@@ -38,6 +41,13 @@ public class Bomber extends Entity {
         y = gp.tileSize;
         // speed = 3;
         direction = "down";
+    }
+
+    public void reset() {
+        bombs = 1;
+        lives = 3;
+        score = 0;
+        setDefaultValues();
     }
 
     public void getImage() {
@@ -180,18 +190,17 @@ public class Bomber extends Entity {
             switch (objName) {
                 case "speed":
                     speed++;
-                    gp.ui.showGameMessage("+1 SPEED", x, y + gp.tileSize / 16, Color.web("#6fe4f9"));
+                    gp.ui.showGameMessage("+1 SPEED", x, y + gp.tileSize / 16, Color.web("#6fe4f9"), true);
                     powerUp(i, col, row);
                     break;
                 case "flames":
                     Bomb.bomb_radius++;
-                    gp.ui.showGameMessage("+1 FLAME", x, y + gp.tileSize / 16, Color.web("#6fe4f9"));
+                    gp.ui.showGameMessage("+1 FLAME", x, y + gp.tileSize / 16, Color.web("#6fe4f9"), true);
                     powerUp(i, col, row);
                     break;
                 case "bombs":
                     bombs++;
-                    gp.ui.showGameMessage("+1 BOMB", x, y + gp.tileSize / 16, Color.web("#6fe4f9"));
-
+                    gp.ui.showGameMessage("+1 BOMB", x, y + gp.tileSize / 16, Color.web("#6fe4f9"), true);
                     powerUp(i, col, row);
                     break;
                 case "portal":
@@ -199,6 +208,8 @@ public class Bomber extends Entity {
                         gp.levelIndex++;
                         if (gp.levelIndex >= LEVEL.values().length) {
                             gp.gameState = gp.GAME_WIN_STATE;
+                            gp.music.stop();
+                            gp.playSE(9);
                         } else {
                             gp.gameState = gp.NEW_GAME_STATE;
                         }
