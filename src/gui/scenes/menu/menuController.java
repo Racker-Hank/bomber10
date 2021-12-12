@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import src.gui.game.GamePane;
+import src.gui.game.UI;
+import src.gui.model.GameLabelButton;
+import src.gui.model.GameSubScene;
 import src.gui.scenes.loading.loadingController;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -37,8 +40,11 @@ public class menuController implements Initializable {
     @FXML
     private Button startGame;
 
+    public UI ui;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        ui = new UI(root);
         // load loading scene
         if (!loadingController.isSplashLoaded) {
             // loadSplashScene();
@@ -88,10 +94,14 @@ public class menuController implements Initializable {
     public void startGame() {
         Stage primaryStage;
         primaryStage = (Stage) root.getScene().getWindow();
-        GamePane gamePane = new GamePane();
+        GamePane gamePane = new GamePane(primaryStage);
         // primaryStage.hide();
         // gamePane.setupGame();
         primaryStage.setScene(gamePane.gameScene);
+    }
+
+    public void showSettings() {
+
     }
 
     public void quit() {

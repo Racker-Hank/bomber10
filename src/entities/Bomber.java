@@ -1,6 +1,7 @@
 package src.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import src.bomb.Bomb;
 import src.entities.enemy.EnemyManager;
@@ -74,9 +75,7 @@ public class Bomber extends Entity {
 
         if (isDead) {
             // gp.gameState = gp.GAME_OVER_STATE;
-            System.out.println("sfdasd");
         } else if (isExploded) {
-            System.out.println("sadf");
         } else {
             if (keyHandler.up || keyHandler.down || keyHandler.left || keyHandler.right || keyHandler.space) {
                 if (keyHandler.up) {
@@ -181,17 +180,18 @@ public class Bomber extends Entity {
             switch (objName) {
                 case "speed":
                     speed++;
-                    // gp.obj.remove(i);
+                    gp.ui.showGameMessage("+1 SPEED", x, y + gp.tileSize / 16, Color.web("#6fe4f9"));
                     powerUp(i, col, row);
                     break;
                 case "flames":
                     Bomb.bomb_radius++;
-                    // gp.obj.remove(i);
+                    gp.ui.showGameMessage("+1 FLAME", x, y + gp.tileSize / 16, Color.web("#6fe4f9"));
                     powerUp(i, col, row);
                     break;
                 case "bombs":
                     bombs++;
-                    // gp.obj.remove(i);
+                    gp.ui.showGameMessage("+1 BOMB", x, y + gp.tileSize / 16, Color.web("#6fe4f9"));
+
                     powerUp(i, col, row);
                     break;
                 case "portal":
@@ -205,7 +205,6 @@ public class Bomber extends Entity {
                     }
                     break;
             }
-            // gp.tileManager.liveMapTile[col][row] = ' ';
         }
     }
 
@@ -301,9 +300,9 @@ public class Bomber extends Entity {
                     gp.gameState = gp.GAME_OVER_STATE;
                 } else {
                     gp.gameState = gp.NEW_GAME_STATE;
-                    System.out.println("asdfas");
                 }
                 isExploded = false;
+                explodeCounter = 0;
             }
         }
         gc.drawImage(image, x, y);

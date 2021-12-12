@@ -12,12 +12,12 @@ public class GetImage {
         // bolloom
         public Image balloom_up1, balloom_up2, balloom_down1, balloom_down2, balloom_left1, balloom_left2,
                         balloom_right1,
-                        balloom_right2, balloom_dead1;
+                        balloom_right2, balloom_dead1, balloom_dead2, balloom_dead3;
 
         // oneal
         public Image oneal_up1, oneal_up2, oneal_down1, oneal_down2, oneal_left1, oneal_left2, oneal_right1,
                         oneal_right2,
-                        oneal_dead1;
+                        oneal_dead1, oneal_dead2, oneal_dead3;
 
         // tiles
         public Image grass, wall, wall1;
@@ -73,6 +73,8 @@ public class GetImage {
                 balloom_right1 = Sprite.balloom_right2.getFxImage();
                 balloom_right2 = Sprite.balloom_right3.getFxImage();
                 balloom_dead1 = Sprite.balloom_dead.getFxImage();
+                balloom_dead2 = Sprite.mob_dead1.getFxImage();
+                balloom_dead3 = Sprite.mob_dead3.getFxImage();
 
                 // oneal
                 oneal_up1 = Sprite.oneal_left1.getFxImage();
@@ -84,6 +86,8 @@ public class GetImage {
                 oneal_right1 = Sprite.oneal_right2.getFxImage();
                 oneal_right2 = Sprite.oneal_right3.getFxImage();
                 oneal_dead1 = Sprite.oneal_dead.getFxImage();
+                oneal_dead2 = Sprite.mob_dead1.getFxImage();
+                oneal_dead3 = Sprite.mob_dead3.getFxImage();
 
                 // tiles
                 grass = Sprite.grass.getFxImage();

@@ -24,6 +24,7 @@ public class Oneal extends EnemyManager {
     public void setDefaultValues() {
         direction = "down";
         speed = 1;
+        killScore = 200;
     }
 
     public void getImage() {
@@ -36,6 +37,8 @@ public class Oneal extends EnemyManager {
         right1 = gp.getImage.oneal_right1;
         right2 = gp.getImage.oneal_right2;
         dead1 = gp.getImage.oneal_dead1;
+        dead2 = gp.getImage.oneal_dead2;
+        dead3 = gp.getImage.oneal_dead3;
     }
 
     @Override

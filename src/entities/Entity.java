@@ -6,6 +6,7 @@ import src.entities.enemy.Oneal;
 import src.gui.game.GamePane;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Entity {
@@ -51,6 +52,8 @@ public class Entity {
         this.gp = gp;
     }
 
+    int killScore = 0;
+
     public void render(GraphicsContext gc) {
         if (!isExploded) {
             switch (direction) {
@@ -92,14 +95,14 @@ public class Entity {
             explodeCounter++;
             if (explodeCounter > 0 && explodeCounter <= 15) {
                 if (explodeCounter == 1) {
-                    if (this instanceof Balloom) {
-                        gp.player.score += 100;
+                    if (this instanceof EnemyManager) {
+                        EnemyManager enemy = (EnemyManager) this;
+                        killScore = enemy.killScore;
+                        gp.player.score += enemy.killScore;
                         gp.ui.scoreLabel.setText("Score: " + gp.player.score);
-                    } else if (this instanceof Oneal) {
-                        gp.player.score += 200;
-                        gp.ui.scoreLabel.setText("Score: " + gp.player.score);
+                        gp.playSE(7);
+                        gp.ui.showGameMessage("+" + killScore, x + gp.tileSize / 32, y + gp.tileSize / 16, Color.WHITE);
                     }
-                    gp.playSE(7);
                 }
                 image = dead1;
             } else if (explodeCounter > 15 && explodeCounter <= 30) {
@@ -109,6 +112,7 @@ public class Entity {
             } else {
                 image = null;
                 if (this instanceof EnemyManager) {
+                    explodeCounter = 0;
                     gp.tileManager.liveMapTile[this.x / gp.tileSize][this.y / gp.tileSize] = ' ';
                     gp.enemy.remove(this);
                 }

@@ -24,6 +24,7 @@ public class Balloom extends EnemyManager {
     public void setDefaultValues() {
         direction = "down";
         speed = 1;
+        killScore = 100;
     }
 
     public void getImage() {
@@ -36,6 +37,8 @@ public class Balloom extends EnemyManager {
         right1 = gp.getImage.balloom_right1;
         right2 = gp.getImage.balloom_right2;
         dead1 = gp.getImage.balloom_dead1;
+        dead2 = gp.getImage.balloom_dead2;
+        dead3 = gp.getImage.balloom_dead3;
     }
 
     @Override

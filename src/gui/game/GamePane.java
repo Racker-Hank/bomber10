@@ -105,8 +105,9 @@ public class GamePane {
     public final int GAME_WIN_STATE = 3;
     public final int GAME_OVER_STATE = 4;
 
-    public GamePane() {
+    public GamePane(Stage primaryStage) {
         // create game pane
+        this.primaryStage = primaryStage;
         initGamePane();
         initGame();
         setupGame();
@@ -120,6 +121,7 @@ public class GamePane {
         gamePane.getStyleClass().add("game-background");
 
         canvasContainer = new HBox();
+        // canvasContainer.setEffect(new DropShadow(15, Color.web("#6fe4f9")));
         canvasContainer.setAlignment(Pos.CENTER);
         AnchorPane.setTopAnchor(canvasContainer, 100.0);
         AnchorPane.setLeftAnchor(canvasContainer, 40.0);
@@ -137,7 +139,7 @@ public class GamePane {
         // AnchorPane.setTopAnchor(canvas, 100.0);
         // AnchorPane.setLeftAnchor(canvas, 40.0);
         gc = canvas.getGraphicsContext2D();
-        canvas.setEffect(new DropShadow(15, Color.web("#6fe4f9")));
+        // canvas.setEffect(new DropShadow(15, Color.web("#6fe4f9")));
 
         canvasContainer.getChildren().add(canvas);
 
@@ -193,17 +195,16 @@ public class GamePane {
             @Override
             public void handle(long now) {
                 render();
-                update(startTime, now);
+                update(now);
             }
         };
         gameThread.start();
     }
 
-    public void update(long startTime, long now) {
+    public void update(long now) {
         // System.out.println(gameState);
         if (gameState == PLAY_STATE) {
             gamePlayState();
-            // levelTimePassed += (double) 1 / 60;
             levelTimePassed = (double) ((now - startTime) / 1000000000);
             double levelTimeLeft = levelTimeLimit - levelTimePassed;
             if (levelTimeLeft >= 0) {
@@ -214,8 +215,7 @@ public class GamePane {
         }
         if (gameState == PAUSE_STATE) {
             gamePauseState();
-            double levelTimeLeft = levelTimeLimit - levelTimePassed;
-            ui.timeLabel.setText("Time: " + String.format("%.0f", levelTimeLeft));
+            startTime = (long) (now - levelTimePassed * 1000000000);
         }
         if (gameState == NEW_GAME_STATE) {
             newGameState();
@@ -251,14 +251,21 @@ public class GamePane {
 
         music.play();
         se.play();
-        // for (int i = 0; i < bombs.size(); i++) {
-        // bombs.get(i).bombSE.play();
-        // }
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).spriteCounter >= 50 && bombs.get(i).spriteCounter < Bomb.explodeTime) {
+                bombs.get(i).bombSE.play();
+            }
+        }
     }
 
     public void gamePauseState() {
         music.pause();
         se.pause();
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).spriteCounter >= 50 && bombs.get(i).spriteCounter < Bomb.explodeTime) {
+                bombs.get(i).bombSE.pause();
+            }
+        }
     }
 
     public void newGameState() {
@@ -324,6 +331,7 @@ public class GamePane {
         // draw bomb
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).spriteCounter >= Bomb.explodeTime) {
+                bombs.get(i).spriteCounter = 0;
                 bombs.remove(i);
                 player.bombs++;
             } else {
@@ -342,6 +350,9 @@ public class GamePane {
 
         // draw player
         player.render(gc);
+
+        // draw UI
+        ui.render(gc);
     }
 
     public void playMusic(int i) {

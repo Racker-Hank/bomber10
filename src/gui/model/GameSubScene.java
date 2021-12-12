@@ -15,16 +15,20 @@ public class GameSubScene extends SubScene {
 
     private boolean isHidden;
 
+    private static int width = 400;
+    private static int height = 250;
+
     public GameSubScene() {
-        super(new AnchorPane(), 600, 350);
-        prefWidth(600);
-        prefHeight(350);
-        BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, 600, 350, false, true),
+        super(new AnchorPane(), width, height);
+        prefWidth(width);
+        prefHeight(height);
+        BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, width, height, false, true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         AnchorPane root = (AnchorPane) this.getRoot();
         root.setBackground(new Background(image));
 
-        setLayoutY(95);
+        setLayoutX(1072);
+        setLayoutY((600 - height) / 2);
         // isHidden = true;
     }
 
@@ -36,9 +40,9 @@ public class GameSubScene extends SubScene {
         transition.setNode(this);
 
         if (isHidden) {
-            transition.setToX(-676);
-        } else {
             transition.setToX(0);
+        } else {
+            transition.setToX(-((1072 + this.getWidth()) / 2));
         }
         isHidden = !isHidden;
 
