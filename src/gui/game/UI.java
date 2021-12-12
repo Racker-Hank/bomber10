@@ -1,18 +1,24 @@
 package src.gui.game;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import src.game.HighScore;
 import src.game.LEVEL;
 import src.gui.model.GameButton;
 import src.gui.model.GameLabel;
@@ -26,14 +32,20 @@ public class UI {
 
     public GameSubScene sceneToHide;
 
-    public GameSubScene gameSettings;
-    public GameSubScene menuSettings;
-    public GameSubScene gameLevel;
-    public GameSubScene gameOver;
+    public GameSubScene menuHowToPlaySubScene;
+    public GameSubScene menuHightScoreSubScene;
+    public GameSubScene menuSettingsSubScene;
+
+    public GameSubScene gameSettingsSubScene;
+    public GameSubScene gameLevelSubScene;
+    public GameSubScene gameOverSubScene;
+    public GameSubScene gameHightScoreSubScene;
+
     public GameLabel livesLabel;
     public GameLabel scoreLabel;
     public GameLabel timeLabel;
     public GameLabel levelLabel;
+
     public GameLabelButton pauseButton;
 
     public Font gameFont = Font.font("Poppins", FontWeight.BOLD, 16);
@@ -43,7 +55,7 @@ public class UI {
         this.gp = gp;
         this.gc = gp.gc;
         this.ap = gp.gamePane;
-        createSubScenes();
+        createGameSubScenes();
         createButtons();
         createGameInfoLabels();
     }
@@ -126,40 +138,82 @@ public class UI {
             gp.gameState = gp.PLAY_STATE;
             pauseButton.setText("||");
         }
-        showSubScene(gameSettings);
+        showSubScene(gameSettingsSubScene);
     }
 
     // * SubScenes
-    private void createSubScenes() {
+    public void createMenuSubScenes() {
+        createHowToPlaySubScene();
+    }
+
+    public void createGameSubScenes() {
         createPauseSubScene();
+        createGameHighScoreSubScene();
     }
 
     public void showSubScene(GameSubScene subScene) {
-        if (sceneToHide != null) {
-            sceneToHide.moveSubScene();
-        } else {
+        if (sceneToHide == null) {
             subScene.moveSubScene();
             sceneToHide = subScene;
+        } else if (!sceneToHide.equals(subScene)) {
+            sceneToHide.moveSubScene();
+            subScene.moveSubScene();
+            sceneToHide = subScene;
+        } else {
+            sceneToHide.moveSubScene();
         }
     }
 
+    public void createHowToPlaySubScene() {
+        menuHowToPlaySubScene = new GameSubScene();
+        menuHowToPlaySubScene.toX = -(510);
+        // menuHowToPlaySubScene.setWidth(1000);
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader("./res/howtoplay/HowToPlay.txt", StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String fromText;
+        String line = "";
+        try {
+            while ((fromText = in.readLine()) != null) {
+                line += fromText + '\n';
+            }
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Text text = new Text();
+        text.setText(line);
+        text.setWrappingWidth(340.0);
+        text.setStyle("-fx-text-fill: green; -fx-font-size: 14px;");
+
+        AnchorPane.setTopAnchor(text, 10.0);
+        AnchorPane.setLeftAnchor(text, 30.0);
+        AnchorPane.setRightAnchor(text, 30.0);
+        menuHowToPlaySubScene.getPane().getChildren().add(text);
+        ap.getChildren().addAll(menuHowToPlaySubScene);
+    }
+
     public void createPauseSubScene() {
-        gameSettings = new GameSubScene();
+        gameSettingsSubScene = new GameSubScene();
         // gameSettings.setLayoutX((1072 - gameSettings.getWidth()) / 2);
         GameLabelButton exitToMenuButton = new GameLabelButton("Quit");
         GameLabelButton backToGameButton = new GameLabelButton("Back");
         backToGameButton.setOnMouseClicked(e -> {
             gp.gameState = gp.PLAY_STATE;
-            showSubScene(gameSettings);
+            showSubScene(gameSettingsSubScene);
         });
         exitToMenuButton.setOnMouseClicked(e -> {
             try {
                 // gp.levelIndex = 0;
                 // gp.Level = LEVEL.values()[gp.levelIndex];
                 gp.gameState = gp.GAME_OVER_STATE;
-                gp.gameThread.stop();
                 AnchorPane menu = FXMLLoader.load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
                 ap.getChildren().clear();
+                // gp.gameThread.stop();
                 ap.getChildren().setAll(menu);
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -173,8 +227,60 @@ public class UI {
         AnchorPane.setRightAnchor(buttonContainer, (double) 0);
         buttonContainer.getChildren().add(exitToMenuButton);
         buttonContainer.getChildren().add(backToGameButton);
-        gameSettings.getPane().getChildren().add(buttonContainer);
-        ap.getChildren().add(gameSettings);
+        gameSettingsSubScene.getPane().getChildren().add(buttonContainer);
+        ap.getChildren().add(gameSettingsSubScene);
+    }
+
+    public void createGameHighScoreSubScene() {
+        gameHightScoreSubScene = new GameSubScene();
+        GameLabel text = new GameLabel("New High Score!");
+        AnchorPane.setTopAnchor(text, (double) (40));
+        AnchorPane.setLeftAnchor(text, (double) 30);
+
+        GameLabel highScoreName = new GameLabel("Name: ");
+
+        String LABEL_STYLE = "-fx-font-size: 20;-fx-text-fill: #6fe4f9;-fx-font-family: 'Poppins';-fx-background-color: #0b2364;-fx-background-radius: 15;-fx-padding: 5 10 5 10;-fx-border-color: #6fe4f9;-fx-border-radius: 15;";
+
+        String TEXT_FIELD_STYLE = "-fx-font-size: 16;-fx-text-fill: #fff;-fx-font-family: 'Poppins';-fx-background-color: #0b2364;-fx-background-radius: 15;-fx-border-color: #6fe4f9;-fx-border-radius: 15;";
+
+        highScoreName.setStyle(LABEL_STYLE);
+        // highScoreName.setFont(Font.font("Poppins", 12));
+        TextField highScoreNameInput = new TextField();
+        // highScoreNameInput.setFont(new Font("Poppins", 16));
+        highScoreNameInput.setStyle(TEXT_FIELD_STYLE);
+        highScoreNameInput.setPrefWidth(200);
+
+        HBox highScoreNameContainer = new HBox();
+        highScoreNameContainer.setAlignment(Pos.CENTER);
+        highScoreNameContainer.setSpacing(30);
+        AnchorPane.setTopAnchor(highScoreNameContainer, (double) (100));
+        AnchorPane.setLeftAnchor(highScoreNameContainer, (double) 30);
+        AnchorPane.setRightAnchor(highScoreNameContainer, (double) 30);
+
+        highScoreNameContainer.getChildren().add(highScoreName);
+        highScoreNameContainer.getChildren().add(highScoreNameInput);
+
+        GameLabelButton saveHightScoreButton = new GameLabelButton("Save");
+        AnchorPane.setTopAnchor(saveHightScoreButton, (double) (160));
+        AnchorPane.setLeftAnchor(saveHightScoreButton, (double) 150);
+
+        saveHightScoreButton.setOnMouseClicked(e -> {
+            String name = highScoreNameInput.getText();
+            HighScore.saveHightScore(gp.player.score, name);
+            AnchorPane menu;
+            try {
+                menu = FXMLLoader.load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
+                ap.getChildren().clear();
+                ap.getChildren().setAll(menu);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        gameHightScoreSubScene.getPane().getChildren().add(text);
+        gameHightScoreSubScene.getPane().getChildren().add(highScoreNameContainer);
+        gameHightScoreSubScene.getPane().getChildren().add(saveHightScoreButton);
+        ap.getChildren().add(gameHightScoreSubScene);
     }
 
     // * game info label
@@ -185,21 +291,21 @@ public class UI {
         createLevelLabel();
     }
 
-    private void createLivesLabel() {
+    public void createLivesLabel() {
         livesLabel = new GameLabel("Lives: " + gp.player.lives);
         livesLabel.setLayoutX(40);
         livesLabel.setLayoutY(30);
         ap.getChildren().add(livesLabel);
     }
 
-    private void createScoreLabel() {
+    public void createScoreLabel() {
         scoreLabel = new GameLabel("Score: " + gp.player.score);
         scoreLabel.setLayoutX(300);
         scoreLabel.setLayoutY(30);
         ap.getChildren().add(scoreLabel);
     }
 
-    private void createTimeLabel() {
+    public void createTimeLabel() {
         double levelTimeLeft = gp.levelTimeLimit - gp.levelTimePassed;
         timeLabel = new GameLabel("Time: " + String.format("%.0f", levelTimeLeft));
         timeLabel.setLayoutX(700);
@@ -207,7 +313,7 @@ public class UI {
         ap.getChildren().add(timeLabel);
     }
 
-    private void createLevelLabel() {
+    public void createLevelLabel() {
         levelLabel = new GameLabel("LEVEL " + gp.Level.getLevel());
 
         String LEVEL_LABEL_STYLE = "-fx-font-size: 30;-fx-text-fill: #fff;-fx-font-family: 'Press Start 2P';-fx-background-color: transparent;-fx-background-radius: 15;-fx-padding: 13 20 7 20";

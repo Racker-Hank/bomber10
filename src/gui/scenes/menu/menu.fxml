@@ -34,7 +34,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="showInstruction" contentDisplay="CENTER" layoutX="70.0" layoutY="60.0" mnemonicParsing="false" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="190.0">
+      <Button fx:id="showInstruction" contentDisplay="CENTER" layoutX="70.0" layoutY="60.0" mnemonicParsing="false" onAction="#showHowToPlay" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="190.0">
          <font>
             <Font name="Press Start 2P Regular" size="18.0" />
          </font>

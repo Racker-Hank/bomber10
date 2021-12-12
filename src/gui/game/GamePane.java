@@ -1,9 +1,12 @@
 package src.gui.game;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javafx.animation.AnimationTimer;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,6 +20,7 @@ import src.bomb.Bomb;
 import src.entities.Bomber;
 import src.entities.Entity;
 import src.entities.enemy.EnemyManager;
+import src.game.HighScore;
 import src.game.LEVEL;
 import src.graphics.Sprite;
 import src.graphics.SpriteSheet;
@@ -105,6 +109,8 @@ public class GamePane {
     public final int GAME_WIN_STATE = 3;
     public final int GAME_OVER_STATE = 4;
 
+    public boolean isHighScore;
+
     public GamePane(Stage primaryStage) {
         // create game pane
         this.primaryStage = primaryStage;
@@ -162,12 +168,14 @@ public class GamePane {
         assetSetter = new AssetSetter(this);
         collisionChecker = new CollisionChecker(this);
         ui = new UI(this);
+        HighScore.loadHighScore();
     }
 
     public void setupGame() {
         // this.primaryStage = primaryStage;
         // primaryStage.hide();
         gameState = PLAY_STATE;
+        isHighScore = false;
 
         // set objects (power ups)
         assetSetter.setObject();
@@ -269,6 +277,7 @@ public class GamePane {
     }
 
     public void newGameState() {
+        // level up
         if (levelIndex == Level.getLevel()) {
             music.stop();
             Level = LEVEL.values()[levelIndex];
@@ -312,6 +321,7 @@ public class GamePane {
     public void gameWinState() {
         levelIndex = 0;
         Bomb.bomb_radius = 1;
+        endGameAction();
         // gameState = NEW_GAME_STATE;
     }
 
@@ -325,7 +335,53 @@ public class GamePane {
                 bombs.get(i).bombSE.stop();
             }
         }
-        gameState = NEW_GAME_STATE;
+        // ui.showSubScene(ui.hightScoreSubScene);
+        endGameAction();
+
+        gameThread.stop();
+        // gameState = NEW_GAME_STATE;
+    }
+
+    public void endGameAction() {
+        if (HighScore.size <= 3) {
+            isHighScore = true;
+        } else {
+            // if (HighScore.s.length > 0) {
+            // for (Map.Entry<Integer, String> entry : HighScore.hightScores.entrySet()) {
+            // if (player.score >= entry.getKey()) {
+            // isHighScore = true;
+            // break;
+            // }
+            // }
+            for (int i = 0; i <= HighScore.size; i++) {
+                if (player.score >= HighScore.s[i]) {
+                    isHighScore = true;
+                    break;
+                }
+            }
+            // } else {
+            // isHighScore = true;
+            // }
+        }
+
+        if (isHighScore) {
+            ui.showSubScene(ui.gameHightScoreSubScene);
+            // for (int i = 0; i < array.length; i++) {
+
+            // }
+        }
+
+        // AnchorPane menu;
+        // try {
+        // music.stop();
+        // menu =
+        // FXMLLoader.load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
+        // gamePane.getChildren().clear();
+        // // gp.gameThread.stop();
+        // gamePane.getChildren().setAll(menu);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
 
     public void render() {
@@ -385,5 +441,4 @@ public class GamePane {
         se.setSound(i, 0.7);
         se.play();
     }
-
 }

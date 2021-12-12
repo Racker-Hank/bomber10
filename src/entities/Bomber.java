@@ -8,12 +8,13 @@ import src.entities.enemy.EnemyManager;
 import src.game.LEVEL;
 import src.gui.game.GamePane;
 import src.gui.game.KeyHandler;
+import src.gui.game.Sound;
 
 public class Bomber extends Entity {
     KeyHandler keyHandler;
 
     public int bombs = 1;
-    public int lives = 3;
+    public int lives = 1;
     public int score = 0;
 
     int standCounter = 0;
@@ -24,7 +25,7 @@ public class Bomber extends Entity {
 
         speed = 3;
         bombs = 1;
-        lives = 3;
+        lives = 1;
         score = 0;
 
         solidArea = new Rectangle(0, 13, 16, 16);
@@ -208,8 +209,9 @@ public class Bomber extends Entity {
                         gp.levelIndex++;
                         if (gp.levelIndex >= LEVEL.values().length) {
                             gp.gameState = gp.GAME_WIN_STATE;
-                            gp.music.stop();
-                            gp.playSE(9);
+                            // gp.music.stop();
+                            // gp.playSE(9);
+                            // gp.se = new Sound();
                         } else {
                             gp.gameState = gp.NEW_GAME_STATE;
                         }

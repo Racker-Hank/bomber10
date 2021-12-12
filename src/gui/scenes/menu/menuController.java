@@ -17,8 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-// import javafx.scene.Parent;
-// import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class menuController implements Initializable {
@@ -48,8 +46,10 @@ public class menuController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ui = new UI(root);
+        ui.createMenuSubScenes();
+
         music = new Sound();
-        music.setSound(8, 0.6);
+        music.setSound(8, 0.4);
         music.play();
         music.loop();
         // load loading scene
@@ -88,13 +88,13 @@ public class menuController implements Initializable {
                     AnchorPane parentContent = FXMLLoader
                             .load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
                     root.getChildren().setAll(parentContent);
-                } catch (IOException e1) {
-                    System.out.println(e);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
             });
 
-        } catch (IOException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -111,6 +111,10 @@ public class menuController implements Initializable {
 
     public void showSettings() {
 
+    }
+
+    public void showHowToPlay() {
+        ui.showSubScene(ui.menuHowToPlaySubScene);
     }
 
     public void quit() {

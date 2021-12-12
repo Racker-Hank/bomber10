@@ -13,10 +13,12 @@ import javafx.util.Duration;
 public class GameSubScene extends SubScene {
     private final static String BACKGROUND_IMAGE = "/res/img/UI/blue_panel.png";
 
-    private boolean isHidden;
+    public boolean isHidden;
 
     private static int width = 400;
     private static int height = 250;
+
+    public double toX = -((1072 + this.getWidth()) / 2);
 
     public GameSubScene() {
         super(new AnchorPane(), width, height);
@@ -42,7 +44,7 @@ public class GameSubScene extends SubScene {
         if (isHidden) {
             transition.setToX(0);
         } else {
-            transition.setToX(-((1072 + this.getWidth()) / 2));
+            transition.setToX(toX);
         }
         isHidden = !isHidden;
 
