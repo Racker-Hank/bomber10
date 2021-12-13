@@ -1,6 +1,6 @@
 ## Folder Structure
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The workspace contains two folders by default, where:
@@ -30,6 +30,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/panh20020123"><img src="https://avatars.githubusercontent.com/u/75670354?v=4?s=100" width="100px;" alt=""/><br /><sub><b>panh20020123</b></sub></a><br /><a href="https://github.com/Racker-Hank/bomber10/commits?author=panh20020123" title="Code">💻</a> <a href="https://github.com/Racker-Hank/bomber10/issues?q=author%3Apanh20020123" title="Bug reports">🐛</a> <a href="https://github.com/Racker-Hank/bomber10/pulls?q=is%3Apr+reviewed-by%3Apanh20020123" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/hieuducle"><img src="https://avatars.githubusercontent.com/u/80147798?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hieuducle</b></sub></a><br /><a href="https://github.com/Racker-Hank/bomber10/commits?author=hieuducle" title="Code">💻</a> <a href="#design-hieuducle" title="Design">🎨</a></td>
   </tr>
 </table>
 
