@@ -47,20 +47,35 @@ public class Oneal extends EnemyManager {
 
         if (actionLockCounter == 120) {
             Random rand = new Random();
-            int i = rand.nextInt(100) + 1; // pick a number from 1 to 100
-            int s = rand.nextInt(100) + 1; // pick a number from 1 to 100
+            int ai = rand.nextInt(100) + 1; // pick a number from 1 to 100
+            int i = rand.nextInt(100) + 1;
+            int s = rand.nextInt(100) + 1;
 
-            if (i <= 25) {
-                direction = "up";
-            }
-            if (i > 25 && i <= 50) {
-                direction = "down";
-            }
-            if (i > 50 && i <= 75) {
-                direction = "left";
-            }
-            if (i > 75 && i <= 100) {
-                direction = "right";
+            if (ai <= 50) {
+                if (i <= 25) {
+                    direction = "up";
+                }
+                if (i > 25 && i <= 50) {
+                    direction = "down";
+                }
+                if (i > 50 && i <= 75) {
+                    direction = "left";
+                }
+                if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+            } else {
+                if (this.x > gp.player.x) {
+                    direction = "left";
+                } else if (this.x < gp.player.x) {
+                    direction = "right";
+                } else {
+                    if (this.y > gp.player.y) {
+                        direction = "up";
+                    } else if (this.y < gp.player.y) {
+                        direction = "down";
+                    }
+                }
             }
 
             if (s <= 30) {
