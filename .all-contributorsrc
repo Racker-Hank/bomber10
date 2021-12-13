@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "panh20020123",
+      "name": "panh20020123",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75670354?v=4",
+      "profile": "https://github.com/panh20020123",
+      "contributions": [
+        "code",
+        "bug",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "bomber10",
+  "projectOwner": "Racker-Hank",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
