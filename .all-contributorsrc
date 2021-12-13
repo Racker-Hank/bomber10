@@ -6,6 +6,7 @@
   "commit": false,
   "contributors": [
     {
+
       "login": "hieuducle",
       "name": "hieuducle",
       "avatar_url": "https://avatars.githubusercontent.com/u/80147798?v=4",
@@ -13,6 +14,16 @@
       "contributions": [
         "code",
         "design"
+
+      "login": "panh20020123",
+      "name": "panh20020123",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75670354?v=4",
+      "profile": "https://github.com/panh20020123",
+      "contributions": [
+        "code",
+        "bug",
+        "review"
+
       ]
     }
   ],
