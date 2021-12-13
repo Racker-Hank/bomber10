@@ -51,7 +51,7 @@ public class menuController implements Initializable {
         music.loop();
         // load loading scene
         if (!loadingController.isSplashLoaded) {
-            // loadSplashScene();
+            loadSplashScene();
         }
     }
 
