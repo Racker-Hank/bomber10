@@ -108,6 +108,7 @@ public class GamePane {
     public final int PAUSE_STATE = 2;
     public final int GAME_WIN_STATE = 3;
     public final int GAME_OVER_STATE = 4;
+    public final int GAME_QUIT_STATE = 5;
 
     public boolean isHighScore;
 
@@ -234,6 +235,9 @@ public class GamePane {
         if (gameState == GAME_OVER_STATE) {
             gameOverState();
         }
+        if (gameState == GAME_QUIT_STATE) {
+            gameQuitState();
+        }
     }
 
     public void gamePlayState() {
@@ -342,8 +346,22 @@ public class GamePane {
         // gameState = NEW_GAME_STATE;
     }
 
+    public void gameQuitState() {
+        levelIndex = 0;
+        Bomb.bomb_radius = 1;
+        music.stop();
+        se.stop();
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).spriteCounter >= 50 && bombs.get(i).spriteCounter < Bomb.explodeTime) {
+                bombs.get(i).bombSE.stop();
+            }
+        }
+
+        gameThread.stop();
+    }
+
     public void endGameAction() {
-        if (HighScore.size <= 3) {
+        if (HighScore.setScore.size() <= 4) {
             isHighScore = true;
         } else {
             // if (HighScore.s.length > 0) {
@@ -353,8 +371,8 @@ public class GamePane {
             // break;
             // }
             // }
-            for (int i = 0; i <= HighScore.size; i++) {
-                if (player.score >= HighScore.s[i]) {
+            for (int i = 0; i < HighScore.setScore.size(); i++) {
+                if (player.score >= HighScore.setScore.get(i).score) {
                     isHighScore = true;
                     break;
                 }
@@ -365,6 +383,7 @@ public class GamePane {
         }
 
         if (isHighScore) {
+            ui.createGameHighScoreSubScene();
             ui.showSubScene(ui.gameHightScoreSubScene);
             // for (int i = 0; i < array.length; i++) {
 

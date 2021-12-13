@@ -5,50 +5,59 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class HighScore {
+    public static String highScoreFilePath = "./res/highscore/highscore.txt";
 
-    static String highScoreFilePath = "./res/highscore/highscore.txt";
-    public static TreeMap<Integer, String> hightScores = new TreeMap<>(Collections.reverseOrder());
+    public static List<ScoreName> setScore = new ArrayList<>();
 
-    public static int[] s = new int[5];
-    public static String[] n = new String[5];
-    public static int size = -1;
+    public static class ScoreName implements Comparable {
+        public int score;
+        public String name;
+
+        public ScoreName(int s, String n) {
+            score = s;
+            name = n;
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            ScoreName x = (ScoreName) o;
+            if (x.score > this.score)
+                return -1;
+            if (x.score < this.score)
+                return 1;
+            return x.name.compareTo(this.name);
+        }
+    }
 
     public static void loadHighScore() {
         BufferedReader in;
         try {
-            // in = new BufferedReader(new FileReader(highScoreFilePath));
-            // String fromText;
-            // while ((fromText = in.readLine()) != null) {
-            // // System.out.println(fromText);
-            // String[] line = fromText.split(" ");
-            // String highScore_Name = "";
-            // for (int i = 0; i < line.length - 1; i++) {
-            // highScore_Name += line[i] + " ";
-            // }
-            // Integer highSCore_Score = Integer.parseInt(line[line.length - 1]);
-            // hightScores.put(highSCore_Score, highScore_Name);
-            // }
-            // in.close();
-
             in = new BufferedReader(new FileReader(highScoreFilePath));
 
             String fromText;
             while ((fromText = in.readLine()) != null) {
-                // String[] line = fromText.split(" ", 2);
-                // String highScore_Name = "";
-                // for (int i = 0; i < line.length - 2; i++) {
-                // highScore_Name += line[i] + " ";
-                // }
-                // highScore_Name += line[line.length - 2];
-                // int score = Integer.parseInt(line[line.length - 1]);
-                size++;
-                s[size] = in.read();
-                n[size] = in.readLine();
+                int index = 0;
+                for (int t = 0; t < fromText.length(); t++) {
+                    if (fromText.charAt(t) == ' ') {
+                        index = t;
+                        break;
+                    }
+                }
+                int sc = Integer.parseInt(fromText.substring(0, index));
+                String na = fromText.substring(index + 1).trim();
+
+                ScoreName newS = new ScoreName(sc, na);
+                setScore.add(newS);
+
             }
             in.close();
 
@@ -58,85 +67,21 @@ public class HighScore {
     }
 
     public static void saveHightScore(int score, String name) {
-        // hightScores.put(score, name);
         try {
-            // String toText = "";
-            // BufferedWriter out = new BufferedWriter(new FileWriter(highScoreFilePath,
-            // false));
-            // int k = 0;
-            // if (hightScores.size() > 5) {
-            // k = 5;
-            // } else {
-            // k = hightScores.size();
-            // }
-            // // System.out.println(hightScores.size());
-
-            // for (Map.Entry<Integer, String> entry : hightScores.entrySet()) {
-            // if (k > 0) {
-            // toText += entry.getValue() + " " + entry.getKey() + "\n";
-            // k--;
-            // }
-            // }
-            // out.write(toText);
-            // // System.out.println(toText);
-            // out.close();
-
-            int[] s2 = new int[5];
-            String[] n2 = new String[5];
-            int i2 = -1;
-            int k = 0;
-            boolean d = false;
-
-            // UPDATE
-            for (int j = 0; j <= size; j++) {
-                if (i2 + 1 <= 4) {
-                    if (score < s[j]) {
-                        i2++;
-                        s2[i2] = s[j];
-                        n2[i2] = n[j];
-                    } else if ((score == s[j] && name.compareTo(n[j]) < 0) || (score > s[j])) {
-                        d = true;
-                        i2++;
-                        k = j;
-                        s2[i2] = score;
-                        n2[i2] = name;
-                        break;
-                    }
-                } else
-                    break;
-            }
-
-            if (d) {
-                for (int j = k; j <= size; j++) {
-                    if (i2 + 1 <= 4) {
-                        i2++;
-                        s2[i2] = s[j];
-                        n2[i2] = n[j];
-                    }
-                }
-            } else {
-                if (i2 + 1 <= 4) {
-                    i2++;
-                    d = false;
-                    s2[i2] = score;
-                    n2[i2] = name;
-                }
-            }
-
-            System.out.println(i2);
-
-            for (int j = 0; j <= i2; j++) {
-                if (n2[j] != null)
-                    System.out.println(n2[j]);
-            }
 
             String str = "";
             BufferedWriter out = new BufferedWriter(new FileWriter(highScoreFilePath));
+            setScore.add(new ScoreName(score, name));
 
-            for (int j = 0; j <= i2; j++) {
-                if (n2[j] != null)
-                    str += s2[j] + "\n" + n2[j] + "\n";
+            Collections.sort(setScore, Collections.reverseOrder());
+
+            int count = 0;
+            for (ScoreName i : setScore) {
+                if (count + 1 <= 5) {
+                    str += i.score + " " + i.name + "\n";
+                }
             }
+            setScore = new ArrayList<>();
 
             out.write(str);
             out.close();

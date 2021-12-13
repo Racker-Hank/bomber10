@@ -34,9 +34,6 @@ public class menuController implements Initializable {
     private Button showInstruction;
 
     @FXML
-    private Button showSettings;
-
-    @FXML
     private Button startGame;
 
     public UI ui;
@@ -109,8 +106,8 @@ public class menuController implements Initializable {
         primaryStage.setScene(gamePane.gameScene);
     }
 
-    public void showSettings() {
-
+    public void showHighscore() {
+        ui.showSubScene(ui.menuHightScoreSubScene);
     }
 
     public void showHowToPlay() {

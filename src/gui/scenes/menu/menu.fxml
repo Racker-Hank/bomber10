@@ -16,10 +16,10 @@
             <Rectangle2D />
          </viewport>
          <image>
-            <Image url="@../../../../res/img/Frame%204.png" />
+            <Image url="@../../../../res/img/Frame%205.png" />
          </image>
       </ImageView>
-      <Button fx:id="startGame" contentDisplay="CENTER" layoutX="60.0" layoutY="50.0" mnemonicParsing="false" onAction="#startGame" styleClass="menu-btn" textFill="#a65757" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="130.0">
+      <Button fx:id="startGame" contentDisplay="CENTER" layoutX="60.0" layoutY="50.0" mnemonicParsing="false" onAction="#startGame" styleClass="menu-btn" textFill="#a65757" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="190.0">
          <font>
             <Font name="Press Start 2P Regular" size="18.0" />
          </font>
@@ -34,7 +34,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="showInstruction" contentDisplay="CENTER" layoutX="70.0" layoutY="60.0" mnemonicParsing="false" onAction="#showHowToPlay" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="190.0">
+      <Button fx:id="showInstruction" contentDisplay="CENTER" layoutX="70.0" layoutY="60.0" mnemonicParsing="false" onAction="#showHowToPlay" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="250.0">
          <font>
             <Font name="Press Start 2P Regular" size="18.0" />
          </font>
@@ -49,27 +49,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="showHighscore" contentDisplay="CENTER" layoutX="80.0" layoutY="70.0" mnemonicParsing="false" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="250.0">
+      <Button fx:id="showHighscore" contentDisplay="CENTER" layoutX="82.0" layoutY="310.0" mnemonicParsing="false" onAction="#showHighscore" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="310.0">
          <font>
             <Font name="Press Start 2P Regular" size="18.0" />
          </font>
          <graphic>
             <Label styleClass="menu-btn-text" text="HIGH SCORE" textFill="#6fe4f9">
-               <font>
-                  <Font name="Press Start 2P Regular" size="18.0" />
-               </font>
-            </Label>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="showSettings" contentDisplay="CENTER" layoutX="81.0" layoutY="308.0" mnemonicParsing="false" onAction="#showSettings" styleClass="menu-btn" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="308.0">
-         <font>
-            <Font name="Press Start 2P Regular" size="18.0" />
-         </font>
-         <graphic>
-            <Label styleClass="menu-btn-text" text="SETTINGS" textFill="#6fe4f9">
                <font>
                   <Font name="Press Start 2P Regular" size="18.0" />
                </font>

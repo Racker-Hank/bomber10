@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
@@ -144,11 +145,12 @@ public class UI {
     // * SubScenes
     public void createMenuSubScenes() {
         createHowToPlaySubScene();
+        createMenuHighScoreSubScene();
     }
 
     public void createGameSubScenes() {
         createPauseSubScene();
-        createGameHighScoreSubScene();
+        // createGameHighScoreSubScene();
     }
 
     public void showSubScene(GameSubScene subScene) {
@@ -194,7 +196,41 @@ public class UI {
         AnchorPane.setLeftAnchor(text, 30.0);
         AnchorPane.setRightAnchor(text, 30.0);
         menuHowToPlaySubScene.getPane().getChildren().add(text);
-        ap.getChildren().addAll(menuHowToPlaySubScene);
+        ap.getChildren().add(menuHowToPlaySubScene);
+    }
+
+    public void createMenuHighScoreSubScene() {
+        menuHightScoreSubScene = new GameSubScene();
+        menuHightScoreSubScene.toX = -(510);
+
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(HighScore.highScoreFilePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String fromText;
+        String line = "";
+        try {
+            while ((fromText = in.readLine()) != null) {
+                line += fromText + '\n';
+            }
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Label label = new Label();
+        label.setText(line);
+        label.setTextFill(Color.web("#330099"));
+        label.setFont(new Font("iCielBC Cubano", 25));
+
+        AnchorPane.setTopAnchor(label, 10.0);
+        AnchorPane.setLeftAnchor(label, 150.0);
+        AnchorPane.setRightAnchor(label, 30.0);
+        menuHightScoreSubScene.getPane().getChildren().add(label);
+        ap.getChildren().add(menuHightScoreSubScene);
     }
 
     public void createPauseSubScene() {
@@ -210,9 +246,11 @@ public class UI {
             try {
                 // gp.levelIndex = 0;
                 // gp.Level = LEVEL.values()[gp.levelIndex];
-                gp.gameState = gp.GAME_OVER_STATE;
+                gp.gameState = gp.GAME_QUIT_STATE;
                 AnchorPane menu = FXMLLoader.load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
                 ap.getChildren().clear();
+                ap.getChildren().remove(gameHightScoreSubScene);
+                gp.isHighScore = false;
                 // gp.gameThread.stop();
                 ap.getChildren().setAll(menu);
             } catch (IOException e1) {
@@ -267,6 +305,7 @@ public class UI {
         saveHightScoreButton.setOnMouseClicked(e -> {
             String name = highScoreNameInput.getText();
             HighScore.saveHightScore(gp.player.score, name);
+            ap.getChildren().remove(gameHightScoreSubScene);
             AnchorPane menu;
             try {
                 menu = FXMLLoader.load(getClass().getResource("/src/gui/scenes/menu/menu.fxml"));
