@@ -25,6 +25,17 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "Racker-Hank",
+      "name": "Racker_Hank",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82131995?v=4",
+      "profile": "https://github.com/Racker-Hank",
+      "contributions": [
+        "code",
+        "design",
+        "audio"
+      ]
     }
   ],
   "contributorsPerLine": 7,
