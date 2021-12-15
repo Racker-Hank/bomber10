@@ -41,13 +41,6 @@ public class Entity {
 
     public Image image;
 
-    // Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
-    // public Entity(int xUnit, int yUnit, Image image) {
-    // this.x = xUnit * Sprite.SCALED_SIZE;
-    // this.y = yUnit * Sprite.SCALED_SIZE;
-    // this.image = image;
-    // }
-
     public Entity(GamePane gp) {
         this.gp = gp;
     }

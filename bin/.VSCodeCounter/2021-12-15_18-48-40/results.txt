@@ -1,0 +1,137 @@
+Date : 2021-12-15 18:48:40
+Directory : f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10
+Total : 81 files,  4601 codes, 382 comments, 640 blanks, all 5623 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         73 |      4,251 |        362 |        572 |      5,185 |
+| XML      |          4 |        202 |          0 |         12 |        214 |
+| CSS      |          2 |        106 |          4 |         28 |        138 |
+| Markdown |          2 |         42 |         16 |         28 |         86 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                         | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                            |         81 |      4,601 |        382 |        640 |      5,623 |
+| bin                                                                                          |         43 |      1,552 |        120 |         43 |      1,715 |
+| bin\src                                                                                      |         42 |      1,531 |        112 |         29 |      1,672 |
+| bin\src\bomb                                                                                 |          1 |         77 |         71 |          0 |        148 |
+| bin\src\entities                                                                             |          5 |        174 |          2 |          3 |        179 |
+| bin\src\entities\enemy                                                                       |          3 |         59 |          0 |          0 |         59 |
+| bin\src\game                                                                                 |          3 |         61 |          3 |          1 |         65 |
+| bin\src\graphics                                                                             |          2 |        103 |          2 |          1 |        106 |
+| bin\src\gui                                                                                  |         20 |        938 |         31 |         23 |        992 |
+| bin\src\gui\game                                                                             |         11 |        608 |         29 |          3 |        640 |
+| bin\src\gui\model                                                                            |          4 |         98 |          0 |          0 |         98 |
+| bin\src\gui\scenes                                                                           |          5 |        232 |          2 |         20 |        254 |
+| bin\src\gui\scenes\loading                                                                   |          2 |         43 |          0 |          3 |         46 |
+| bin\src\gui\scenes\menu                                                                      |          2 |        136 |          0 |          3 |        139 |
+| bin\src\object                                                                               |          5 |         51 |          3 |          0 |         54 |
+| bin\src\tile                                                                                 |          5 |        107 |          0 |          1 |        108 |
+| src                                                                                          |         37 |      3,028 |        254 |        583 |      3,865 |
+| src\bomb                                                                                     |          1 |        290 |         12 |         34 |        336 |
+| src\entities                                                                                 |          5 |        571 |         37 |         88 |        696 |
+| src\entities\enemy                                                                           |          3 |        198 |          1 |         38 |        237 |
+| src\game                                                                                     |          2 |        108 |          2 |         29 |        139 |
+| src\graphics                                                                                 |          2 |        219 |         52 |         62 |        333 |
+| src\gui                                                                                      |         16 |      1,518 |        140 |        297 |      1,955 |
+| src\gui\game                                                                                 |          7 |      1,135 |        126 |        216 |      1,477 |
+| src\gui\model                                                                                |          4 |        100 |          4 |         29 |        133 |
+| src\gui\scenes                                                                               |          5 |        283 |         10 |         52 |        345 |
+| src\gui\scenes\loading                                                                       |          2 |         58 |          2 |         12 |         72 |
+| src\gui\scenes\menu                                                                          |          2 |        172 |          6 |         26 |        204 |
+| src\object                                                                                   |          5 |        116 |          7 |         25 |        148 |
+| src\tile                                                                                     |          5 |        181 |          3 |         41 |        225 |
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                     | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\README.md                                          | Markdown |         21 |          8 |         14 |         43 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\README.md                                      | Markdown |         21 |          8 |         14 |         43 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\Bomberman.class                            | Java     |         20 |          0 |          0 |         20 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\bomb\Bomb.class                            | Java     |         77 |         71 |          0 |        148 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\entities\Bomber.class                      | Java     |         66 |          0 |          3 |         69 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\entities\Entity.class                      | Java     |         49 |          2 |          0 |         51 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\entities\enemy\Balloom.class               | Java     |         20 |          0 |          0 |         20 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\entities\enemy\EnemyManager.class          | Java     |         25 |          0 |          0 |         25 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\entities\enemy\Oneal.class                 | Java     |         14 |          0 |          0 |         14 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\game\HighScore$ScoreName.class             | Java     |         11 |          0 |          0 |         11 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\game\HighScore.class                       | Java     |         36 |          0 |          1 |         37 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\game\LEVEL.class                           | Java     |         14 |          3 |          0 |         17 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\graphics\Sprite.class                      | Java     |         88 |          0 |          0 |         88 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\graphics\SpriteSheet.class                 | Java     |         15 |          2 |          1 |         18 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\AssetSetter.class                 | Java     |         34 |          0 |          0 |         34 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\CollisionChecker.class            | Java     |        135 |          0 |          0 |        135 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\GamePane$1.class                  | Java     |         17 |          0 |          0 |         17 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\GamePane.class                    | Java     |        180 |          7 |          2 |        189 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\GetImage.class                    | Java     |         37 |          1 |          0 |         38 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\KeyHandler$1.class                | Java     |         22 |          0 |          0 |         22 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\KeyHandler$2.class                | Java     |         19 |          0 |          0 |         19 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\KeyHandler.class                  | Java     |         14 |          0 |          0 |         14 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\Sound.class                       | Java     |         34 |          0 |          0 |         34 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\UI$Message.class                  | Java     |          9 |          0 |          0 |          9 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\game\UI.class                          | Java     |        107 |         21 |          1 |        129 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\model\GameButton.class                 | Java     |         20 |          0 |          0 |         20 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\model\GameLabel.class                  | Java     |         13 |          0 |          0 |         13 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\model\GameLabelButton.class            | Java     |         27 |          0 |          0 |         27 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\model\GameSubScene.class               | Java     |         38 |          0 |          0 |         38 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\scenes\loading\loading.fxml            | XML      |         20 |          0 |          3 |         23 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\scenes\loading\loadingController.class | Java     |         23 |          0 |          0 |         23 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\scenes\menu\menu.fxml                  | XML      |         81 |          0 |          3 |         84 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\scenes\menu\menuController.class       | Java     |         55 |          0 |          0 |         55 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\gui\scenes\scenes.css                      | CSS      |         53 |          2 |         14 |         69 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\object\Bombs.class                         | Java     |         10 |          0 |          0 |         10 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\object\Flames.class                        | Java     |          8 |          0 |          0 |          8 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\object\ObjectManager.class                 | Java     |         16 |          3 |          0 |         19 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\object\Portal.class                        | Java     |          7 |          0 |          0 |          7 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\object\Speed.class                         | Java     |         10 |          0 |          0 |         10 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\tile\Brick.class                           | Java     |         25 |          0 |          0 |         25 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\tile\Grass.class                           | Java     |         12 |          0 |          0 |         12 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\tile\Tile.class                            | Java     |         19 |          0 |          0 |         19 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\tile\TileManager.class                     | Java     |         34 |          0 |          1 |         35 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\bin\src\tile\Wall.class                            | Java     |         17 |          0 |          0 |         17 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\Bomberman.java                                 | Java     |         25 |          1 |          7 |         33 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\bomb\Bomb.java                                 | Java     |        290 |         12 |         34 |        336 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\entities\Bomber.java                           | Java     |        267 |         27 |         30 |        324 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\entities\Entity.java                           | Java     |        106 |          9 |         20 |        135 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\entities\enemy\Balloom.java                    | Java     |         56 |          0 |         13 |         69 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\entities\enemy\EnemyManager.java               | Java     |         61 |          1 |         11 |         73 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\entities\enemy\Oneal.java                      | Java     |         81 |          0 |         14 |         95 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\game\HighScore.java                            | Java     |         76 |          0 |         18 |         94 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\game\LEVEL.java                                | Java     |         32 |          2 |         11 |         45 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\graphics\Sprite.java                           | Java     |        189 |         46 |         55 |        290 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\graphics\SpriteSheet.java                      | Java     |         30 |          6 |          7 |         43 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\AssetSetter.java                      | Java     |         41 |          0 |          6 |         47 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\CollisionChecker.java                 | Java     |        278 |          8 |         54 |        340 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\GamePane.java                         | Java     |        316 |         80 |         68 |        464 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\GetImage.java                         | Java     |        104 |         16 |         17 |        137 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\KeyHandler.java                       | Java     |         48 |          5 |          7 |         60 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\Sound.java                            | Java     |         41 |          0 |         13 |         54 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\game\UI.java                               | Java     |        307 |         17 |         51 |        375 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\model\GameButton.java                      | Java     |         19 |          2 |          5 |         26 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\model\GameLabel.java                       | Java     |         14 |          0 |          4 |         18 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\model\GameLabelButton.java                 | Java     |         24 |          0 |          7 |         31 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\model\GameSubScene.java                    | Java     |         43 |          2 |         13 |         58 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\scenes\loading\loading.fxml                | XML      |         20 |          0 |          3 |         23 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\scenes\loading\loadingController.java      | Java     |         38 |          2 |          9 |         49 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\scenes\menu\menu.fxml                      | XML      |         81 |          0 |          3 |         84 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\scenes\menu\menuController.java            | Java     |         91 |          6 |         23 |        120 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\gui\scenes\scenes.css                          | CSS      |         53 |          2 |         14 |         69 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\object\Bombs.java                              | Java     |         14 |          0 |          4 |         18 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\object\Flames.java                             | Java     |         14 |          0 |          3 |         17 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\object\ObjectManager.java                      | Java     |         59 |          7 |         10 |         76 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\object\Portal.java                             | Java     |         15 |          0 |          4 |         19 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\object\Speed.java                              | Java     |         14 |          0 |          4 |         18 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\tile\Brick.java                                | Java     |         52 |          0 |          8 |         60 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\tile\Grass.java                                | Java     |          9 |          0 |          5 |         14 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\tile\Tile.java                                 | Java     |         27 |          0 |         10 |         37 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\tile\TileManager.java                          | Java     |         82 |          3 |         13 |         98 |
+| f:\2Study\2Nam2\CS\OOP\Bomberman\bomber10\src\tile\Wall.java                                 | Java     |         11 |          0 |          5 |         16 |
+| Total                                                                                        |          |      4,601 |        382 |        640 |      5,623 |
++----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
